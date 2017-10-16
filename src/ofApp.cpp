@@ -2,7 +2,12 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    showDebug = true;
 
+    ofColor colorOne(15);
+    ofColor colorTwo(35);
+    ofBackgroundGradient(colorOne, colorTwo, OF_GRADIENT_CIRCULAR);
+    ofBackground(colorOne);
 }
 
 //--------------------------------------------------------------
@@ -12,12 +17,23 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    if(showDebug) drawDebug();
+}
 
+void ofApp::drawDebug() {
+    // get raw data from Ps3Controller and print as text
+    // fixed-width, same place (so we can see changes easily)
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    switch(key) {
+        case 'd':
+            showDebug = !showDebug;
+            break;
+        default:
+            break;
+    }
 }
 
 //--------------------------------------------------------------

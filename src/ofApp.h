@@ -7,6 +7,10 @@ class ofApp : public ofBaseApp{
     
     Ps3Controller controller;
 
+    bool showDebug;
+
+    void drawDebug();
+
 	public:
 		void setup();
 		void update();

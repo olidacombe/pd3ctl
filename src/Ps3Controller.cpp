@@ -1,33 +1,55 @@
 #include <stdio.h>
 #include "Ps3Controller.h"
 
-//#define find_arse_elbow
 
 Ps3Controller::Ps3Controller()
 {
     struct hid_device_info *devs, *dev_i;;
 
-#ifdef find_arse_elbow
-    devs = hid_enumerate(0x0, 0x0);
+    device = hid_open(0x54c, 0x0268, NULL); // device = NULL on failure
 
-    dev_i = devs;
-    while(dev_i) {
-        printf("======= Dev ========\n");
-        printf("vendor: %04hx, prod: %04hx\npath: %s, serial: %ls\n",
-                dev_i->vendor_id, dev_i->product_id, dev_i->path, dev_i->serial_number);
-        printf("====================\n");
-        dev_i = dev_i->next;
-    }
-
-    hid_free_enumeration(devs);
-    /* found ps3 controller:
-     * vendor: 054c, prod: 0268
-     * path: Bluetooth_054c_0268_417dbc5a, serial: 00-19-c1-7d-bc-5a
-     */
+#ifdef discern_arse_elbow
+    getFeatureReport();
 #endif
 
-    device = hid_open(0x54c, 0x0268, NULL); // device = NULL on failure
+    readData();
 }
+
+bool Ps3Controller::readData()
+{
+  if(device==nullptr) return false;
+
+  const int readResult = hid_read(device, inputBuffer, inputBufferSize);
+  if(readResult==-1) return false; // error, may have lost device and need to slow scan
+  if(readResult==0) { /* we're non-blocking and there's no data available at the mo */ }
+
+  // debug dump
+  else {
+    for(int i=0; i<readResult; i++) {
+      printf("%02hx ", inputBuffer[i]);
+    }
+    printf("\n");
+  }
+
+  return true;
+}
+
+#ifdef discern_arse_elbow
+void Ps3Controller::getFeatureReport()
+{
+  if(device==nullptr) return;
+
+  inputBuffer[0] = 0x0;
+  const int report0n = hid_get_feature_report(device, inputBuffer, inputBufferSize);
+  printf("report0n: %i\n", report0n);
+  inputBuffer[0] = 0x1;
+  const int report1n = hid_get_feature_report(device, inputBuffer, inputBufferSize);
+  printf("report1n: %i\n", report1n);
+  inputBuffer[0] = 0x2;
+  const int report2n = hid_get_feature_report(device, inputBuffer, inputBufferSize);
+  printf("report2n: %i\n", report2n);
+}
+#endif
 
 Ps3Controller::~Ps3Controller()
 {

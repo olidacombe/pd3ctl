@@ -8,14 +8,13 @@ Ps3Controller::Ps3Controller()
 
     device = hid_open(0x54c, 0x0268, NULL); // device = NULL on failure
 
-    readData();
 }
 
 bool Ps3Controller::readData()
 {
   if(device==nullptr) return false;
 
-  const int readResult = hid_read(device, inputBuffer.data(), inputBufferSize.size());
+  const int readResult = hid_read(device, inputBuffer.data(), inputBuffer.size());
   if(readResult==-1) return false; // error, may have lost device and need to slow scan
   if(readResult==0) { /* we're non-blocking and there's no data available at the mo */ }
 
@@ -32,7 +31,15 @@ bool Ps3Controller::readData()
   return true;
 }
 
-const auto Ps3Controller::getData()
+void Ps3Controller::update()
+{
+    const int readStatus = readData();
+    // do stuff with readStatus
+}
+
+// no c++14 yet :(
+//const auto& Ps3Controller::getData()
+const decltype(Ps3Controller::inputBuffer)& Ps3Controller::getData()
 {
     return inputBuffer;
 }

@@ -14,7 +14,9 @@ bool Ps3Controller::readData()
 {
   if(device==nullptr) return false;
 
+  // thread safety?
   const int readResult = hid_read(device, inputBuffer.data(), inputBuffer.size());
+  
   if(readResult==-1) return false; // error, may have lost device and need to slow scan
   if(readResult==0) { /* we're non-blocking and there's no data available at the mo */ }
 
@@ -51,3 +53,4 @@ Ps3Controller::~Ps3Controller()
     }
     hid_exit(); // maybe there should be one manager which does this last
 }
+

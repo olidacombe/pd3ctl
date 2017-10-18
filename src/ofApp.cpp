@@ -20,6 +20,11 @@ void ofApp::update(){
 void ofApp::draw(){
     //ofClear(0);
     if(showDebug) drawDebug();
+
+    using v = Ps3Controller::CVal;
+    // latency for days
+    ofDrawBitmapString(ofToHex(controller.getCVal(v::L_x)), 100, 100);
+    ofDrawCircle(ofMap(controller.getCVal(v::L_x), 0, 0xff, 0, ofGetWidth()), ofGetHeight()/2, 20);
 }
 
 void ofApp::drawDebug() {

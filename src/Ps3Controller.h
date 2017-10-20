@@ -7,11 +7,13 @@
 
 class Ps3Controller
 {
-    hid_device *device;
+    std::atomic<hid_device*> device;
     static const size_t inputBufferSize = 49;
     //unsigned char[50] buf; // received 49 bytes in test, +1 for report num
     //unsigned char inputBuffer[inputBufferSize]; // let's see how much data we can get before trimming
     std::array<unsigned char, inputBufferSize> inputBuffer;
+
+    //std::atomic_bool available;
 
     bool readData();
 
@@ -23,12 +25,12 @@ class Ps3Controller
      * 0x03 & 0xf0 : Square | X | O | Triangle
     */
 
-    /*
+    void searchForController();
+
     void startReadThread() { }
     void stopReadThread() { }
     void startControllerSearchThread() { }
     void stopControllerSearchThread() { }
-    */
 
 public:
     Ps3Controller();
@@ -43,7 +45,7 @@ public:
      *
      */
 
-    bool available() { return false; } // eventually this will return true when we've got a controller
+    const bool available() { return !(device==nullptr); } // eventually this will return true when we've got a controller
 
     void update();
     

@@ -2,15 +2,33 @@
 #include "Ps3Controller.h"
 
 
-Ps3Controller::Ps3Controller()
+Ps3Controller::Ps3Controller() : device(nullptr)
 {
     inputBuffer.fill(0);
 
+    /*
     device = hid_open(0x54c, 0x0268, NULL); // device = NULL on failure
 
     if(device != nullptr) {
-        hid_set_nonblocking(device, 1);
+        available = true;
+        //hid_set_nonblocking(device, 1); // we will want to set it blocking in thread
+        startReadThread();
+    } else {
+        startControllerSearchThread();
     }
+    */
+
+    startControllerSearchThread();
+}
+
+void Ps3Controller::searchForController() {
+	if(device != nullptr) { // shouldn't get here
+		hid_close(device);
+		device = nullptr;
+		//available = false;
+		return;
+	}	
+	device = hid_open(0x054c, 0x0268, nullptr); // device = nullptr on failure
 }
 
 bool Ps3Controller::readData()

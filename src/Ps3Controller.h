@@ -15,7 +15,6 @@ class Ps3Controller
 
     bool readData();
 
-
     /* Button bits
      * ===========
      * 0x02 & 0x0f : Start | JoyR | JoyL | Select
@@ -24,9 +23,27 @@ class Ps3Controller
      * 0x03 & 0xf0 : Square | X | O | Triangle
     */
 
+    /*
+    void startReadThread() { }
+    void stopReadThread() { }
+    void startControllerSearchThread() { }
+    void stopControllerSearchThread() { }
+    */
+
 public:
     Ps3Controller();
     ~Ps3Controller();
+
+
+    /*
+     * Get a thread system going, where we loop slowly looking for a controller when there is none
+     * and we loop hid_read (blocking) when there is one (no waiting between hid_read's return and next call).
+     *
+     * To get safety, look into std::array.allocate with swap, or similar
+     *
+     */
+
+    bool available() { return false; } // eventually this will return true when we've got a controller
 
     void update();
     

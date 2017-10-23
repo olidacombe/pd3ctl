@@ -1,6 +1,8 @@
 #pragma once
 
 #include <array>
+#include <chrono>
+#include <thread>
 #include <hidapi/hidapi.h>
 
 //#define discern_arse_elbow
@@ -14,6 +16,8 @@ class Ps3Controller
     std::array<unsigned char, inputBufferSize> inputBuffer;
 
     //std::atomic_bool available;
+    std::thread controllerPoller, dataReader;
+    std::atomic_bool stopControllerSearch, stopRead;
 
     bool readData();
 
@@ -27,10 +31,10 @@ class Ps3Controller
 
     void searchForController();
 
-    void startReadThread() { }
-    void stopReadThread() { }
-    void startControllerSearchThread() { }
-    void stopControllerSearchThread() { }
+    void startReadThread();
+    void stopReadThread();
+    void startControllerSearchThread();
+    void stopControllerSearchThread();
 
 public:
     Ps3Controller();

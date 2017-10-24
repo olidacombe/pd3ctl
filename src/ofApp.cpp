@@ -2,7 +2,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    showDebug = true;
+    showDebug = false;
 
     ofSetBackgroundAuto(true);
     ofColor colorOne(15);
@@ -13,7 +13,7 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    controller.update();
+    //controller.update();
 }
 
 //--------------------------------------------------------------

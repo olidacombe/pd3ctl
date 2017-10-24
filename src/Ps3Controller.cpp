@@ -8,68 +8,57 @@ Ps3Controller::Ps3Controller() : device(nullptr), stopControllerSearch(true), st
 
     hid_init();
 
-    /*
-    device = hid_open(0x54c, 0x0268, NULL); // device = NULL on failure
-
-    if(device != nullptr) {
-        available = true;
-        //hid_set_nonblocking(device, 1); // we will want to set it blocking in thread
-        startReadThread();
-    } else {
-        startControllerSearchThread();
-    }
-    */
-
-    startControllerSearchThread();
+    runWorkThread();
 }
 
-void Ps3Controller::startControllerSearchThread()
-{
-    stopReadThread();
+void Ps3Controller::runWorkThread() {
+    stopWorkThread();
+    stopWork = false;
+    stopRead = true;
     stopControllerSearch = false;
-    controllerPoller = std::thread(&Ps3Controller::searchForController, this);
+    workThread = std::thread( [this] {
+        while(!stopWork) {
+            if(!stopRead) { // read
+                readLoop();
+            } else if(!stopControllerSearch) { // search
+                searchForController();
+            }
+        }
+    });
 }
 
-void Ps3Controller::stopControllerSearchThread()
-{
-    // check out this type of thing:
-    // https://stackoverflow.com/questions/32206611/how-to-exit-from-a-background-thread-loop
+// I think this doesn't work :?
+void Ps3Controller::stopWorkThread() {
+    stopWork = true;
     stopControllerSearch = true;
-    if(controllerPoller.joinable()) controllerPoller.join();
+    stopRead = true;
+    if(workThread.joinable()) workThread.join();
 }
+
 
 void Ps3Controller::searchForController() {
 
     static std::chrono::seconds waitTime{1};
 
     while(!stopControllerSearch && device == nullptr) {
+        std::this_thread::sleep_for(waitTime);
+
         device = hid_open(0x054c, 0x0268, nullptr); // device = nullptr on failure
         if(device != nullptr) {
             std::cout << "controller found" << std::endl;
+            hid_set_nonblocking(device, 1); // nonblocking - but give generous timeout
+            stopControllerSearch = true;
+            stopRead = false;
         }
-        std::this_thread::sleep_for(waitTime);
     }
 }
 
-void Ps3Controller::startReadThread() {
-    stopControllerSearchThread();
-    stopRead = false;
-    dataReader = std::thread( [this] {
-        while(!stopRead && readData()); // too aggressive?
-    });
-}
-
-void Ps3Controller::stopReadThread() {
-    stopRead = true;
-    if(dataReader.joinable()) dataReader.join();
-}
-
-// replace with lambda?
-/*
 void Ps3Controller::readLoop() {
-    while(!(stopRead=readData()));
+    while(!stopRead && readData()); // too aggressive?
+    stopRead = true;
+    stopControllerSearch = false;
 }
-*/
+
 
 bool Ps3Controller::readData()
 {
@@ -82,25 +71,9 @@ bool Ps3Controller::readData()
   if(readResult==-1) return false; // error, may have lost device and need to slow scan
   if(readResult==0) { /* we're non-blocking and there's no data available at the mo */ }
 
-  else {
-    // debug dump
-    /*
-    for(int i=0; i<readResult; i++) {
-      printf("%02hx ", inputBuffer[i]);
-    }
-    printf("\n");
-    */
-  }
-
   return true;
 }
 
-void Ps3Controller::update()
-{
-    if(!readData()) {
-        // lost device?
-    }
-}
 
 // no c++14 yet :(
 //const auto& Ps3Controller::getData()
@@ -111,7 +84,8 @@ const decltype(Ps3Controller::inputBuffer)& Ps3Controller::getData()
 
 Ps3Controller::~Ps3Controller()
 {
-    stopControllerSearchThread();
+    stopWorkThread();
+
     if(device!=nullptr) {
         hid_close(device);
     }

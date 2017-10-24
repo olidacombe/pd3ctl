@@ -16,8 +16,8 @@ class Ps3Controller
     std::array<unsigned char, inputBufferSize> inputBuffer;
 
     //std::atomic_bool available;
-    std::thread controllerPoller, dataReader;
-    std::atomic_bool stopControllerSearch, stopRead;
+    std::thread workThread;
+    std::atomic_bool stopControllerSearch, stopRead, stopWork;
 
     bool readData();
 
@@ -30,11 +30,10 @@ class Ps3Controller
     */
 
     void searchForController();
+    void readLoop();
 
-    void startReadThread();
-    void stopReadThread();
-    void startControllerSearchThread();
-    void stopControllerSearchThread();
+    void runWorkThread();
+    void stopWorkThread();
 
 public:
     Ps3Controller();
@@ -49,10 +48,8 @@ public:
      *
      */
 
-    const bool available() { return !(device==nullptr); } // eventually this will return true when we've got a controller
+    const bool available() { return !(device==nullptr); }
 
-    void update();
-    
     //enum class CVal: decltype(inputBuffer)::size_type {
     enum CVal: decltype(inputBuffer)::size_type {
         L_x = 0x06,

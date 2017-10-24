@@ -11,11 +11,8 @@ class Ps3Controller
 {
     std::atomic<hid_device*> device;
     static const size_t inputBufferSize = 49;
-    //unsigned char[50] buf; // received 49 bytes in test, +1 for report num
-    //unsigned char inputBuffer[inputBufferSize]; // let's see how much data we can get before trimming
     std::array<unsigned char, inputBufferSize> inputBuffer;
 
-    //std::atomic_bool available;
     std::thread workThread;
     std::atomic_bool stopControllerSearch, stopRead, stopWork;
 
@@ -35,20 +32,14 @@ class Ps3Controller
     void runWorkThread();
     void stopWorkThread();
 
+    void logMessage(const std::string& m) {
+        std::cout << "Ps3Controller " << m << std::endl;
+    }
+
 public:
     Ps3Controller();
     ~Ps3Controller();
 
-
-    /*
-     * Get a thread system going, where we loop slowly looking for a controller when there is none
-     * and we loop hid_read (blocking) when there is one (no waiting between hid_read's return and next call).
-     *
-     * To get safety, look into std::array.allocate with swap, or similar
-     *
-     */
-
-    const bool available() { return !(device==nullptr); }
 
     //enum class CVal: decltype(inputBuffer)::size_type {
     enum CVal: decltype(inputBuffer)::size_type {

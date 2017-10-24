@@ -2,6 +2,8 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    ofSetFrameRate(60);
+
     showDebug = false;
 
     ofSetBackgroundAuto(true);

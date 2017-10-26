@@ -2,9 +2,9 @@
 #include "Ps3Controller.h"
 
 
-Ps3Controller::Ps3Controller() : device(nullptr), stopControllerSearch(true), stopRead(true)
+Ps3Controller::Ps3Controller() : device(nullptr), stopControllerSearch(true), stopRead(true), input{&buffers[0]}, output{&buffers[1]}
 {
-    inputBuffer.fill(0);
+    output->fill(0);
 
     hid_init();
 
@@ -71,7 +71,7 @@ bool Ps3Controller::readData()
   if(device==nullptr) return false;
 
   // thread safety?
-  const int readResult = hid_read_timeout(device, inputBuffer.data(), inputBuffer.size(), 10);
+  const int readResult = hid_read_timeout(device, input->data(), input->size(), 10);
   
   if(readResult==-1) return false; // error, may have lost device and need to slow scan
   if(readResult==0) { /* we're non-blocking and there's no data available at the mo */ }
@@ -82,9 +82,9 @@ bool Ps3Controller::readData()
 
 // no c++14 yet :(
 //const auto& Ps3Controller::getData()
-const decltype(Ps3Controller::inputBuffer)& Ps3Controller::getData()
+const Ps3Controller::bufferType Ps3Controller::getData()
 {
-    return inputBuffer;
+    return *output;
 }
 
 Ps3Controller::~Ps3Controller()

@@ -73,8 +73,11 @@ bool Ps3Controller::readData()
   // thread safety?
   const int readResult = hid_read_timeout(device, input->data(), input->size(), 10);
   
-  if(readResult==-1) return false; // error, may have lost device and need to slow scan
-  if(readResult==0) { /* we're non-blocking and there's no data available at the mo */ }
+  if(readResult == -1) return false; // error, may have lost device and need to slow scan
+  if(readResult != 0) { /* 0 means we're non-blocking and there's no data available at the mo */
+      // do swap
+      std::swap(input, output);
+  }
 
   return true;
 }

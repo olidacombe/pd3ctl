@@ -14,6 +14,7 @@ class Ps3Controller
     using bufferType = std::array<unsigned char, inputBufferSize>;
     bufferType buffers[2];
     bufferType *input, *output;
+    std::mutex dataMutex;
 
     std::thread workThread;
     std::atomic_bool stopControllerSearch, stopRead, stopWork;
@@ -66,6 +67,7 @@ public:
     };
 
     auto getCVal(CVal item) -> decltype((*output)[item]) {
+        std::lock_guard<std::mutex> dataLock(dataMutex);
         return (*output)[item];
     }
 

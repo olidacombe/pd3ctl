@@ -76,6 +76,7 @@ bool Ps3Controller::readData()
   if(readResult == -1) return false; // error, may have lost device and need to slow scan
   if(readResult != 0) { /* 0 means we're non-blocking and there's no data available at the mo */
       // do swap
+      std::lock_guard<std::mutex> dataLock(dataMutex);
       std::swap(input, output);
   }
 
@@ -87,6 +88,7 @@ bool Ps3Controller::readData()
 //const auto& Ps3Controller::getData()
 const Ps3Controller::bufferType Ps3Controller::getData()
 {
+    std::lock_guard<std::mutex> dataLock(dataMutex);
     return *output;
 }
 

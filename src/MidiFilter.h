@@ -11,7 +11,7 @@ class ofxMidiCCSender {
 
 
 public:
-    ofxMidiCCSender(const std::shared_ptr<ofxMidiOut>& out, const unsigned char &channel=0, const unsigned char &ccnum=0) :
+    ofxMidiCCSender(const std::shared_ptr<ofxMidiOut>& out, const unsigned char &ccnum=0, const unsigned char &channel=0) :
         ch(channel), cc(ccnum), midiOut(out), lastValue(0)
     {
         assert(cc<128);

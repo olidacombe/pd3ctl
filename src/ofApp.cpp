@@ -1,7 +1,5 @@
 #include "ofApp.h"
 
-using v = Ps3Controller::CVal;
-
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetFrameRate(60);
@@ -23,10 +21,32 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    //controller.update();
-    static ofxMidiCCSender x1Sender{midiOut};
+    // all below may be put in a separate thread, but for now it is fine here
 
-    x1Sender(controller.getCVal(v::L_x));
+    constexpr unsigned char maxCC = 127;
+
+    using v = Ps3Controller::CVal;
+
+    static const ofVec2f origin(UCHAR_MAX/2, UCHAR_MAX/2);
+    static const ofVec2f xAxis(1, 0);
+
+    static ofxMidiCCSender x1Sender{midiOut, 0, 1};
+    static ofxMidiCCSender y1Sender{midiOut, 1, 1};
+    static ofxMidiCCSender r1Sender{midiOut, 2, 1}; // radius 1
+    static ofxMidiCCSender t1Sender{midiOut, 3, 1}; // argument (theta - 't') 1
+
+    static ofVec2f joy1;
+    static ofVec2f joy1relative;
+
+    const auto x1 = controller.getCVal(v::L_x);
+    const auto y1 = controller.getCVal(v::L_y);
+    joy1.set(x1, y1);
+    joy1relative = joy1 - origin;
+    x1Sender(x1);
+    y1Sender(y1);
+
+    r1Sender(joy1relative.length()*2); // uuuglyyyy
+    t1Sender(ofMap(xAxis.angle(joy1relative), -180, 180, 0, UCHAR_MAX));
 }
 
 //--------------------------------------------------------------
@@ -34,9 +54,8 @@ void ofApp::draw(){
     //ofClear(0);
     if(showDebug) drawDebug();
 
-    // latency for days
-    //ofDrawBitmapString(ofToHex(controller.getCVal(v::L_x)), 100, 100);
-    //ofDrawCircle(mouseX, mouseY, 2);
+    using v = Ps3Controller::CVal;
+
     ofDrawCircle(
         ofMap(controller.getCVal(v::L_x), 0, 0xff, 0, ofGetWidth()),
         ofMap(controller.getCVal(v::L_y), 0, 0xff, 0, ofGetHeight()),

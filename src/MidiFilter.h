@@ -1,5 +1,9 @@
 #pragma once
 
+#include <climits>
+
+constexpr unsigned char maxCC = 127;
+
 class ofxMidiCCSender {
 
     unsigned char ch, cc, lastValue;
@@ -14,12 +18,13 @@ public:
         assert(ch<16);
     }
 
-    void operator() (unsigned char v) {
-        if(v>127) return; // keep it valid, people
-        if(lastValue == v) return; // don't spam
+    void operator() (const unsigned char& v) {
+
+        const unsigned char newValue = ofMap(v, 0, UCHAR_MAX, 0, maxCC);
+        if(lastValue == newValue) return; // don't spam
         
-        midiOut->sendControlChange(ch, cc, v);
-        lastValue=v;
+        midiOut->sendControlChange(ch, cc, newValue);
+        lastValue=newValue;
     }
 };
 

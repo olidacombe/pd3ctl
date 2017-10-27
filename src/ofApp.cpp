@@ -8,7 +8,8 @@ void ofApp::setup(){
 
     showDebug = false;
 
-    if(!midiOut.openVirtualPort("ps3ctl")) {
+    midiOut = std::make_shared<ofxMidiOut>();
+    if(!midiOut->openVirtualPort("ps3ctl")) {
         ofLogError("failed to open virtual midi output port");
         ofExit();
     }
@@ -124,6 +125,6 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 }
 
 void ofApp::exit() {
-    midiOut.closePort();
+    midiOut->closePort();
 }
 

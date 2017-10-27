@@ -8,7 +8,7 @@
 class ofApp : public ofBaseApp{
     
     Ps3Controller controller;
-    ofxMidiOut midiOut;
+    std::shared_ptr<ofxMidiOut> midiOut;
 
     bool showDebug;
 

@@ -1,10 +1,17 @@
 #include "ofApp.h"
 
+using v = Ps3Controller::CVal;
+
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetFrameRate(60);
 
     showDebug = false;
+
+    if(!midiOut.openVirtualPort("ps3ctl")) {
+        ofLogError("failed to open virtual midi output port");
+        ofExit();
+    }
 
     ofSetBackgroundAuto(true);
     ofColor colorOne(15);
@@ -16,6 +23,9 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     //controller.update();
+    static ofxMidiCCSender x1Sender{midiOut};
+
+    x1Sender(controller.getCVal(v::L_x));
 }
 
 //--------------------------------------------------------------
@@ -23,7 +33,6 @@ void ofApp::draw(){
     //ofClear(0);
     if(showDebug) drawDebug();
 
-    using v = Ps3Controller::CVal;
     // latency for days
     //ofDrawBitmapString(ofToHex(controller.getCVal(v::L_x)), 100, 100);
     //ofDrawCircle(mouseX, mouseY, 2);
@@ -113,3 +122,8 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){ 
 
 }
+
+void ofApp::exit() {
+    midiOut.closePort();
+}
+

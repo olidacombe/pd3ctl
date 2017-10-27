@@ -2,10 +2,13 @@
 
 #include "ofMain.h"
 #include "Ps3Controller.h"
+#include "ofxMidi.h"
+#include "MidiFilter.h"
 
 class ofApp : public ofBaseApp{
     
     Ps3Controller controller;
+    ofxMidiOut midiOut;
 
     bool showDebug;
 
@@ -15,6 +18,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void exit();
 
 		void keyPressed(int key);
 		void keyReleased(int key);

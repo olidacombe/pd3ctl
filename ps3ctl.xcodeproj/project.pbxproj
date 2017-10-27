@@ -7,11 +7,28 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		096F512B99D9E347D9BC2196 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 518AE6AD352A1C952DC3F459 /* ofxToggle.cpp */; };
+		0AE2E05C2E91D14B6C5EDBCB /* ofxSlider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15BC462A0DFF1F3DF432A71D /* ofxSlider.cpp */; };
+		1005B86A05CB56EE41BFD1A6 /* ofxRtMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 80DBB6CEAF73448C071D978D /* ofxRtMidiIn.cpp */; };
+		1F0B88D53040123CF5264087 /* ofxMidiIn.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65A98AA72CEDA24908EB1ECE /* ofxMidiIn.cpp */; };
+		22BD39354A30B7EBB948E47E /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A21ED59DB20975204AFA80 /* ofxButton.cpp */; };
 		47BEA6DA4DAB16171FF60DA8 /* Ps3Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 612BA98BED6AE98BD498D3F8 /* Ps3Controller.cpp */; };
-		4F7706501F957FE5008501DA /* libhidapi.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F77064F1F957FE5008501DA /* libhidapi.0.dylib */; };
+		4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ED32BCED5F83DF1453CC78 /* ofxLabel.cpp */; };
+		4F628DDE1FA243BE006FC6AE /* libhidapi.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */; };
+		61D2C1F8A206C13F1FAA8F12 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A72F4750B7E700CB6DA19139 /* ofxPanel.cpp */; };
+		631702104AFC104323A9EB79 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */; };
+		635AE4BD1CB2FEA01332D2AB /* ofxMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5548701AB6A19DF6D2D18211 /* ofxMidi.cpp */; };
+		6B384E71331CB264F914967E /* ofxMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9F11DF39E73B89B7DF43F595 /* ofxMidiOut.cpp */; };
+		7BBBC90203B1E0C947B2346B /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4A8963A13FA452E044DDA0F2 /* ofxSliderGroup.cpp */; };
+		9A1B74CE8F5548FEA16B021D /* ofxBaseMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C507CA5CA276A2239E7B3FE7 /* ofxBaseMidi.cpp */; };
+		B23CFF0416C3C90E72F96959 /* ofxMidiMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E037328455C272984F53C1A3 /* ofxMidiMessage.cpp */; };
+		CE40E2F27A9B023A06262DD0 /* ofxBaseGui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BE4223BF3E1C8C3D97060EB2 /* ofxBaseGui.cpp */; };
+		D5C7809806AC6F22A0199630 /* ofxGuiGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66A8C9984B8C0E5F600D3FE2 /* ofxGuiGroup.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
+		F1CF071637E0BD5C3368435F /* ofxRtMidiOut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 177F1520ECD045CBEF1984D4 /* ofxRtMidiOut.cpp */; };
+		FBAF980182FFC5CD01A7384C /* RtMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 53E5597F601C6521CBCE9B10 /* RtMidi.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +61,40 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4F77064F1F957FE5008501DA /* libhidapi.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.0.dylib; path = "../../../../usr/local/Cellar/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib"; sourceTree = "<group>"; };
+		09EF3A4ED3C890D2AB7DFE05 /* ofxMidiOut.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiOut.h; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiOut.h; sourceTree = SOURCE_ROOT; };
+		15BC462A0DFF1F3DF432A71D /* ofxSlider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSlider.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxSlider.cpp; sourceTree = SOURCE_ROOT; };
+		177F1520ECD045CBEF1984D4 /* ofxRtMidiOut.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRtMidiOut.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/desktop/ofxRtMidiOut.cpp; sourceTree = SOURCE_ROOT; };
+		19ED32BCED5F83DF1453CC78 /* ofxLabel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxLabel.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxLabel.cpp; sourceTree = SOURCE_ROOT; };
+		3D9051B303E2641DE7416415 /* ofxLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLabel.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxLabel.h; sourceTree = SOURCE_ROOT; };
+		430D0015DA91EF061C7F5B73 /* ofxRtMidiOut.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRtMidiOut.h; path = ../../src/openFrameworks/addons/ofxMidi/src/desktop/ofxRtMidiOut.h; sourceTree = SOURCE_ROOT; };
+		49D96829DBB97C2FDDF2BDC6 /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxToggle.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
+		4A8963A13FA452E044DDA0F2 /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSliderGroup.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
+		4EE8356B71976B1E3493B758 /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseGui.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
+		4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.0.dylib; path = "../../../../usr/local/Cellar/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib"; sourceTree = "<group>"; };
+		518AE6AD352A1C952DC3F459 /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxToggle.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
+		53E5597F601C6521CBCE9B10 /* RtMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = RtMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/libs/rtmidi/RtMidi.cpp; sourceTree = SOURCE_ROOT; };
+		5548701AB6A19DF6D2D18211 /* ofxMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidi.cpp; sourceTree = SOURCE_ROOT; };
+		5AA4EB93CDD2F70EE8D4ABFE /* ofxButton.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxButton.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxButton.h; sourceTree = SOURCE_ROOT; };
+		5AB9324E52ECE6095AFF6B26 /* ofxMidiMessage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiMessage.h; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiMessage.h; sourceTree = SOURCE_ROOT; };
 		612BA98BED6AE98BD498D3F8 /* Ps3Controller.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Ps3Controller.cpp; path = src/Ps3Controller.cpp; sourceTree = SOURCE_ROOT; };
+		65A98AA72CEDA24908EB1ECE /* ofxMidiIn.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiIn.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiIn.cpp; sourceTree = SOURCE_ROOT; };
+		66A8C9984B8C0E5F600D3FE2 /* ofxGuiGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxGuiGroup.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxGuiGroup.cpp; sourceTree = SOURCE_ROOT; };
+		70EDBBBD992218D4C01E7A29 /* ofxPanel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxPanel.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxPanel.h; sourceTree = SOURCE_ROOT; };
+		75643D26B9E8892D167288E3 /* ofxGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGui.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxGui.h; sourceTree = SOURCE_ROOT; };
+		80DBB6CEAF73448C071D978D /* ofxRtMidiIn.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxRtMidiIn.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/desktop/ofxRtMidiIn.cpp; sourceTree = SOURCE_ROOT; };
+		81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMIDI.framework; path = /System/Library/Frameworks/CoreMIDI.framework; sourceTree = "<group>"; };
+		869A49DB52D67BD24E1323BE /* ofxMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidi.h; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidi.h; sourceTree = SOURCE_ROOT; };
+		99EAA261F5E994477C31BFE9 /* RtMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = RtMidi.h; path = ../../src/openFrameworks/addons/ofxMidi/libs/rtmidi/RtMidi.h; sourceTree = SOURCE_ROOT; };
+		9F11DF39E73B89B7DF43F595 /* ofxMidiOut.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiOut.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiOut.cpp; sourceTree = SOURCE_ROOT; };
+		A11C9060155ACCEEADC199DE /* ofxMidiTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiTypes.h; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiTypes.h; sourceTree = SOURCE_ROOT; };
+		A72F4750B7E700CB6DA19139 /* ofxPanel.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxPanel.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxPanel.cpp; sourceTree = SOURCE_ROOT; };
+		B0A21ED59DB20975204AFA80 /* ofxButton.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxButton.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxButton.cpp; sourceTree = SOURCE_ROOT; };
+		BE4223BF3E1C8C3D97060EB2 /* ofxBaseGui.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxBaseGui.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxBaseGui.cpp; sourceTree = SOURCE_ROOT; };
+		C507CA5CA276A2239E7B3FE7 /* ofxBaseMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxBaseMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxBaseMidi.cpp; sourceTree = SOURCE_ROOT; };
+		CBEE38A3D9BBD66B17DBE315 /* ofxSliderGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSliderGroup.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxSliderGroup.h; sourceTree = SOURCE_ROOT; };
+		D8386D99836CE08796EAEE3F /* ofxSlider.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxSlider.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxSlider.h; sourceTree = SOURCE_ROOT; };
+		DFF5FDBB3B26F22A96A203E3 /* ofxMidiIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiIn.h; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiIn.h; sourceTree = SOURCE_ROOT; };
+		E037328455C272984F53C1A3 /* ofxMidiMessage.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidiMessage.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiMessage.cpp; sourceTree = SOURCE_ROOT; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../src/openFrameworks/libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* ps3ctlDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ps3ctlDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B69E1D0A3A1BDC003C02F2 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = SOURCE_ROOT; };
@@ -54,7 +103,11 @@
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../src/openFrameworks/libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		ECD700326F291E29B20A8440 /* ofxGuiGroup.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGuiGroup.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxGuiGroup.h; sourceTree = SOURCE_ROOT; };
+		F8EA1796E4991499AB6227D9 /* ofxRtMidiIn.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxRtMidiIn.h; path = ../../src/openFrameworks/addons/ofxMidi/src/desktop/ofxRtMidiIn.h; sourceTree = SOURCE_ROOT; };
+		FA9F431A0703EE3D0247152D /* ofxMidiConstants.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxMidiConstants.h; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidiConstants.h; sourceTree = SOURCE_ROOT; };
 		FCCB3B87F163DBB329789916 /* Ps3Controller.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = Ps3Controller.h; path = src/Ps3Controller.h; sourceTree = SOURCE_ROOT; };
+		FFB7E4F9ED4501E356AB2376 /* ofxBaseMidi.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseMidi.h; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxBaseMidi.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,14 +115,57 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F7706501F957FE5008501DA /* libhidapi.0.dylib in Frameworks */,
+				4F628DDE1FA243BE006FC6AE /* libhidapi.0.dylib in Frameworks */,
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
+				631702104AFC104323A9EB79 /* CoreMIDI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2413C01760B1811BED0F502D /* ofxMidi */ = {
+			isa = PBXGroup;
+			children = (
+				9CBF51184BE294FD9D73043F /* src */,
+				5A08CCDC8D19E7162DE57128 /* libs */,
+				36D7EC7EF50E326EAC88A0AD /* frameworks */,
+			);
+			name = ofxMidi;
+			sourceTree = "<group>";
+		};
+		36D7EC7EF50E326EAC88A0AD /* frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */,
+			);
+			name = frameworks;
+			sourceTree = "<group>";
+		};
+		480A780D8D0308AE4A368801 /* ofxGui */ = {
+			isa = PBXGroup;
+			children = (
+				A763ED608B35AE3310251DEE /* src */,
+			);
+			name = ofxGui;
+			sourceTree = "<group>";
+		};
+		4F628DDC1FA243BD006FC6AE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5A08CCDC8D19E7162DE57128 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				945CEFADFB0DF400A92A507C /* rtmidi */,
+			);
+			name = libs;
+			sourceTree = "<group>";
+		};
 		6948EE371B920CB800B5AC1A /* local_addons */ = {
 			isa = PBXGroup;
 			children = (
@@ -77,9 +173,75 @@
 			name = local_addons;
 			sourceTree = "<group>";
 		};
+		945CEFADFB0DF400A92A507C /* rtmidi */ = {
+			isa = PBXGroup;
+			children = (
+				53E5597F601C6521CBCE9B10 /* RtMidi.cpp */,
+				99EAA261F5E994477C31BFE9 /* RtMidi.h */,
+			);
+			name = rtmidi;
+			sourceTree = "<group>";
+		};
+		99DED6A5D3EDE030B1A80348 /* desktop */ = {
+			isa = PBXGroup;
+			children = (
+				80DBB6CEAF73448C071D978D /* ofxRtMidiIn.cpp */,
+				F8EA1796E4991499AB6227D9 /* ofxRtMidiIn.h */,
+				177F1520ECD045CBEF1984D4 /* ofxRtMidiOut.cpp */,
+				430D0015DA91EF061C7F5B73 /* ofxRtMidiOut.h */,
+			);
+			name = desktop;
+			sourceTree = "<group>";
+		};
+		9CBF51184BE294FD9D73043F /* src */ = {
+			isa = PBXGroup;
+			children = (
+				99DED6A5D3EDE030B1A80348 /* desktop */,
+				C507CA5CA276A2239E7B3FE7 /* ofxBaseMidi.cpp */,
+				FFB7E4F9ED4501E356AB2376 /* ofxBaseMidi.h */,
+				5548701AB6A19DF6D2D18211 /* ofxMidi.cpp */,
+				869A49DB52D67BD24E1323BE /* ofxMidi.h */,
+				FA9F431A0703EE3D0247152D /* ofxMidiConstants.h */,
+				65A98AA72CEDA24908EB1ECE /* ofxMidiIn.cpp */,
+				DFF5FDBB3B26F22A96A203E3 /* ofxMidiIn.h */,
+				E037328455C272984F53C1A3 /* ofxMidiMessage.cpp */,
+				5AB9324E52ECE6095AFF6B26 /* ofxMidiMessage.h */,
+				9F11DF39E73B89B7DF43F595 /* ofxMidiOut.cpp */,
+				09EF3A4ED3C890D2AB7DFE05 /* ofxMidiOut.h */,
+				A11C9060155ACCEEADC199DE /* ofxMidiTypes.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		A763ED608B35AE3310251DEE /* src */ = {
+			isa = PBXGroup;
+			children = (
+				BE4223BF3E1C8C3D97060EB2 /* ofxBaseGui.cpp */,
+				4EE8356B71976B1E3493B758 /* ofxBaseGui.h */,
+				B0A21ED59DB20975204AFA80 /* ofxButton.cpp */,
+				5AA4EB93CDD2F70EE8D4ABFE /* ofxButton.h */,
+				75643D26B9E8892D167288E3 /* ofxGui.h */,
+				66A8C9984B8C0E5F600D3FE2 /* ofxGuiGroup.cpp */,
+				ECD700326F291E29B20A8440 /* ofxGuiGroup.h */,
+				19ED32BCED5F83DF1453CC78 /* ofxLabel.cpp */,
+				3D9051B303E2641DE7416415 /* ofxLabel.h */,
+				A72F4750B7E700CB6DA19139 /* ofxPanel.cpp */,
+				70EDBBBD992218D4C01E7A29 /* ofxPanel.h */,
+				15BC462A0DFF1F3DF432A71D /* ofxSlider.cpp */,
+				D8386D99836CE08796EAEE3F /* ofxSlider.h */,
+				4A8963A13FA452E044DDA0F2 /* ofxSliderGroup.cpp */,
+				CBEE38A3D9BBD66B17DBE315 /* ofxSliderGroup.h */,
+				518AE6AD352A1C952DC3F459 /* ofxToggle.cpp */,
+				49D96829DBB97C2FDDF2BDC6 /* ofxToggle.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				480A780D8D0308AE4A368801 /* ofxGui */,
+				2413C01760B1811BED0F502D /* ofxMidi */,
 			);
 			name = addons;
 			sourceTree = "<group>";
@@ -95,7 +257,6 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
-				4F77064F1F957FE5008501DA /* libhidapi.0.dylib */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -103,6 +264,7 @@
 				BB4B014C10F69532006C3DED /* addons */,
 				6948EE371B920CB800B5AC1A /* local_addons */,
 				E4B69B5B0A3A1756003C02F2 /* ps3ctlDebug.app */,
+				4F628DDC1FA243BD006FC6AE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -231,6 +393,22 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				47BEA6DA4DAB16171FF60DA8 /* Ps3Controller.cpp in Sources */,
+				CE40E2F27A9B023A06262DD0 /* ofxBaseGui.cpp in Sources */,
+				22BD39354A30B7EBB948E47E /* ofxButton.cpp in Sources */,
+				D5C7809806AC6F22A0199630 /* ofxGuiGroup.cpp in Sources */,
+				4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */,
+				61D2C1F8A206C13F1FAA8F12 /* ofxPanel.cpp in Sources */,
+				0AE2E05C2E91D14B6C5EDBCB /* ofxSlider.cpp in Sources */,
+				7BBBC90203B1E0C947B2346B /* ofxSliderGroup.cpp in Sources */,
+				096F512B99D9E347D9BC2196 /* ofxToggle.cpp in Sources */,
+				1005B86A05CB56EE41BFD1A6 /* ofxRtMidiIn.cpp in Sources */,
+				F1CF071637E0BD5C3368435F /* ofxRtMidiOut.cpp in Sources */,
+				9A1B74CE8F5548FEA16B021D /* ofxBaseMidi.cpp in Sources */,
+				635AE4BD1CB2FEA01332D2AB /* ofxMidi.cpp in Sources */,
+				1F0B88D53040123CF5264087 /* ofxMidiIn.cpp in Sources */,
+				B23CFF0416C3C90E72F96959 /* ofxMidiMessage.cpp in Sources */,
+				6B384E71331CB264F914967E /* ofxMidiOut.cpp in Sources */,
+				FBAF980182FFC5CD01A7384C /* RtMidi.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,8 +427,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -271,6 +447,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../src/openFrameworks/addons/ofxGui/src,
+					../../src/openFrameworks/addons/ofxMidi/libs,
+					../../src/openFrameworks/addons/ofxMidi/libs/pgmidi,
+					../../src/openFrameworks/addons/ofxMidi/libs/rtmidi,
+					../../src/openFrameworks/addons/ofxMidi/src,
+					../../src/openFrameworks/addons/ofxMidi/src/desktop,
+					../../src/openFrameworks/addons/ofxMidi/src/ios,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -294,6 +477,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../src/openFrameworks/addons/ofxGui/src,
+					../../src/openFrameworks/addons/ofxMidi/libs,
+					../../src/openFrameworks/addons/ofxMidi/libs/pgmidi,
+					../../src/openFrameworks/addons/ofxMidi/libs/rtmidi,
+					../../src/openFrameworks/addons/ofxMidi/src,
+					../../src/openFrameworks/addons/ofxMidi/src/desktop,
+					../../src/openFrameworks/addons/ofxMidi/src/ios,
 					/usr/local/include,
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
@@ -315,8 +505,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
@@ -335,6 +523,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../src/openFrameworks/addons/ofxGui/src,
+					../../src/openFrameworks/addons/ofxMidi/libs,
+					../../src/openFrameworks/addons/ofxMidi/libs/pgmidi,
+					../../src/openFrameworks/addons/ofxMidi/libs/rtmidi,
+					../../src/openFrameworks/addons/ofxMidi/src,
+					../../src/openFrameworks/addons/ofxMidi/src/desktop,
+					../../src/openFrameworks/addons/ofxMidi/src/ios,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = YES;
@@ -350,8 +545,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
-				CLANG_CXX_LIBRARY = "libc++";
 				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/bin/";
 				COPY_PHASE_STRIP = YES;
 				DEAD_CODE_STRIPPING = YES;
@@ -371,6 +564,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../src/openFrameworks/addons/ofxGui/src,
+					../../src/openFrameworks/addons/ofxMidi/libs,
+					../../src/openFrameworks/addons/ofxMidi/libs/pgmidi,
+					../../src/openFrameworks/addons/ofxMidi/libs/rtmidi,
+					../../src/openFrameworks/addons/ofxMidi/src,
+					../../src/openFrameworks/addons/ofxMidi/src/desktop,
+					../../src/openFrameworks/addons/ofxMidi/src/ios,
 				);
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -394,6 +594,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../src/openFrameworks/addons/ofxGui/src,
+					../../src/openFrameworks/addons/ofxMidi/libs,
+					../../src/openFrameworks/addons/ofxMidi/libs/pgmidi,
+					../../src/openFrameworks/addons/ofxMidi/libs/rtmidi,
+					../../src/openFrameworks/addons/ofxMidi/src,
+					../../src/openFrameworks/addons/ofxMidi/src/desktop,
+					../../src/openFrameworks/addons/ofxMidi/src/ios,
 					/usr/local/include,
 				);
 				ICON = "$(ICON_NAME_DEBUG)";
@@ -422,6 +629,13 @@
 				HEADER_SEARCH_PATHS = (
 					"$(OF_CORE_HEADERS)",
 					src,
+					../../src/openFrameworks/addons/ofxGui/src,
+					../../src/openFrameworks/addons/ofxMidi/libs,
+					../../src/openFrameworks/addons/ofxMidi/libs/pgmidi,
+					../../src/openFrameworks/addons/ofxMidi/libs/rtmidi,
+					../../src/openFrameworks/addons/ofxMidi/src,
+					../../src/openFrameworks/addons/ofxMidi/src/desktop,
+					../../src/openFrameworks/addons/ofxMidi/src/ios,
 					/usr/local/include,
 				);
 				ICON = "$(ICON_NAME_RELEASE)";

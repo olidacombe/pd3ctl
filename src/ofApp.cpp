@@ -24,16 +24,18 @@ void ofApp::update(){
     // all below may be put in a separate thread, but for now it is fine here
 
     constexpr unsigned char maxCC = 127;
+    constexpr float midpoint = UCHAR_MAX/2;
+    static const float maxRadius = std::sqrt(2) * midpoint;
 
     using v = Ps3Controller::CVal;
 
-    static const ofVec2f origin(UCHAR_MAX/2, UCHAR_MAX/2);
-    static const ofVec2f xAxis(1, 0);
+    static const ofVec2f origin(midpoint, midpoint);
+    static const ofVec2f xAxis(-1, 0);
 
     static ofxMidiCCSender x1Sender{midiOut, 0, 1};
     static ofxMidiCCSender y1Sender{midiOut, 1, 1};
-    static ofxMidiCCSender r1Sender{midiOut, 2, 1}; // radius 1
-    static ofxMidiCCSender t1Sender{midiOut, 3, 1}; // argument (theta - 't') 1
+    static ofxMidiCCSender r1Sender{midiOut, 2, 1, 0, maxRadius}; // radius 1
+    static ofxMidiCCSender t1Sender{midiOut, 3, 1, -180, 180}; // argument (theta - 't') 1
 
     static ofVec2f joy1;
     static ofVec2f joy1relative;
@@ -45,8 +47,8 @@ void ofApp::update(){
     x1Sender(x1);
     y1Sender(y1);
 
-    r1Sender(joy1relative.length()*2); // uuuglyyyy
-    t1Sender(ofMap(xAxis.angle(joy1relative), -180, 180, 0, UCHAR_MAX));
+    r1Sender(joy1relative.length());
+    t1Sender(joy1relative.angle(xAxis));
 }
 
 //--------------------------------------------------------------

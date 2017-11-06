@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include <limits>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -69,14 +70,14 @@ template <class T>
 void ofApp::drawJoystick(const T& xVal, const T& yVal, const float &x, const float &y) {
     constexpr float joyDrawRadius = 100;
     constexpr int joyDrawSize = 2;
+    constexpr T maxValue= std::numeric_limits<T>::max();
 
     ofPushMatrix();
     ofTranslate(x, y);
     
-    // 0xff magic number.. UCHAR_MAX?  Did we template for any reason at all then?
     ofDrawCircle(
-        ofMap(xVal, 0, 0xff, -1* joyDrawRadius, joyDrawRadius),
-        ofMap(yVal, 0, 0xff, -1* joyDrawRadius, joyDrawRadius),
+        ofMap(xVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius),
+        ofMap(yVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius),
     joyDrawSize);
 
     ofPopMatrix();

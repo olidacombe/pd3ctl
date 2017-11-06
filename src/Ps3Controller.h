@@ -10,8 +10,11 @@
 class Ps3Controller
 {
     std::atomic<hid_device*> device;
-    static const size_t inputBufferSize = 49;
-    std::array<unsigned char, inputBufferSize> inputBuffer;
+    static constexpr size_t inputBufferSize = 49;
+    using bufferType = std::array<unsigned char, inputBufferSize>;
+    bufferType buffers[2];
+    bufferType *input, *output;
+    std::mutex dataMutex;
 
     std::thread workThread;
     std::atomic_bool stopControllerSearch, stopRead, stopWork;
@@ -42,7 +45,7 @@ public:
 
 
     //enum class CVal: decltype(inputBuffer)::size_type {
-    enum CVal: decltype(inputBuffer)::size_type {
+    enum CVal: bufferType::size_type {
         L_x = 0x06,
         L_y = 0x07,
         R_x = 0x08,
@@ -63,11 +66,12 @@ public:
         Pitch = 0x2c
     };
 
-    auto getCVal(CVal item) -> decltype(inputBuffer[item]) {
-        return inputBuffer[item];
+    auto getCVal(CVal item) -> decltype((*output)[item]) {
+        std::lock_guard<std::mutex> dataLock(dataMutex);
+        return (*output)[item];
     }
 
     // no c++14 yet :(
     //const auto& getData();
-    const decltype(inputBuffer)& getData();
+    const bufferType getData();
 };

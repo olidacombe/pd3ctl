@@ -13,7 +13,9 @@ class ofApp : public ofBaseApp{
     bool showDebug;
 
     void drawDebug();
-
+    template <class T>
+    void drawJoystick(const T& xVal, const T& yVal, const float &x=0, const float &y=0);
+    
 	public:
 		void setup();
 		void update();

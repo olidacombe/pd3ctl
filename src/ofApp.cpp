@@ -53,19 +53,33 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    const float w = ofGetWidth();
+    const float h = ofGetHeight();
+
     //ofClear(0);
     if(showDebug) drawDebug();
 
     using v = Ps3Controller::CVal;
 
+    drawJoystick(controller.getCVal(v::L_x), controller.getCVal(v::L_y), w/4, h/2);
+    drawJoystick(controller.getCVal(v::R_x), controller.getCVal(v::R_y), 3*w/4, h/2);
+}
+
+template <class T>
+void ofApp::drawJoystick(const T& xVal, const T& yVal, const float &x, const float &y) {
+    constexpr float joyDrawRadius = 100;
+    constexpr int joyDrawSize = 2;
+
+    ofPushMatrix();
+    ofTranslate(x, y);
+    
+    // 0xff magic number.. UCHAR_MAX?  Did we template for any reason at all then?
     ofDrawCircle(
-        ofMap(controller.getCVal(v::L_x), 0, 0xff, 0, ofGetWidth()),
-        ofMap(controller.getCVal(v::L_y), 0, 0xff, 0, ofGetHeight()),
-    2);
-    ofDrawCircle(
-        ofMap(controller.getCVal(v::R_x), 0, 0xff, 0, ofGetWidth()),
-        ofMap(controller.getCVal(v::R_y), 0, 0xff, 0, ofGetHeight()),
-    2);
+        ofMap(xVal, 0, 0xff, -1* joyDrawRadius, joyDrawRadius),
+        ofMap(yVal, 0, 0xff, -1* joyDrawRadius, joyDrawRadius),
+    joyDrawSize);
+
+    ofPopMatrix();
 }
 
 void ofApp::drawDebug() {

@@ -10,6 +10,18 @@ UDLR::UDLR(std::shared_ptr<Ps3Controller>& _controller) : controller(_controller
     UButton.addVertex(ofVec3f(width/2, padding + height));
     UButton.addVertex(ofVec3f(-1*width/2, padding + height));
     UButton.addVertex(ofVec3f(-1*width/2, padding + height - width));
+
+    UButton.addIndex(0);
+    UButton.addIndex(1);
+    UButton.addIndex(4);
+
+    UButton.addIndex(1);
+    UButton.addIndex(2);
+    UButton.addIndex(3);
+
+    UButton.addIndex(3);
+    UButton.addIndex(4);
+    UButton.addIndex(1);
 }
 
 UDLR::~UDLR() {

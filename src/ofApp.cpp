@@ -7,6 +7,9 @@ void ofApp::setup(){
 
     showDebug = false;
 
+    controller = std::make_shared<Ps3Controller>();
+    udlr = std::make_unique<UDLR>(controller);
+    
     midiOut = std::make_shared<ofxMidiOut>();
     if(!midiOut->openVirtualPort("ps3ctl")) {
         ofLogError("failed to open virtual midi output port");
@@ -41,8 +44,8 @@ void ofApp::update(){
     static ofVec2f joy1;
     static ofVec2f joy1relative;
 
-    const auto x1 = controller.getCVal(v::L_x);
-    const auto y1 = controller.getCVal(v::L_y);
+    const auto x1 = controller->getCVal(v::L_x);
+    const auto y1 = controller->getCVal(v::L_y);
     joy1.set(x1, y1);
     joy1relative = joy1 - origin;
     x1Sender(x1);
@@ -62,9 +65,15 @@ void ofApp::draw(){
 
     using v = Ps3Controller::CVal;
 
-    drawJoystick(controller.getCVal(v::L_x), controller.getCVal(v::L_y), w/4, h/2);
-    drawJoystick(controller.getCVal(v::R_x), controller.getCVal(v::R_y), 3*w/4, h/2);
+    drawJoystick(controller->getCVal(v::L_x), controller->getCVal(v::L_y), w/4, h/2);
+    drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), 3*w/4, h/2);
+
+    ofPushMatrix();
+    ofTranslate(100, 100);
+    udlr->draw();
+    ofPopMatrix();
 }
+
 
 template <class T>
 void ofApp::drawJoystick(const T& xVal, const T& yVal, const float &x, const float &y) {
@@ -86,7 +95,7 @@ void ofApp::drawJoystick(const T& xVal, const T& yVal, const float &x, const flo
 void ofApp::drawDebug() {
     // get raw data from Ps3Controller and print as text
     // fixed-width, same place (so we can see changes easily)
-    auto data = controller.getData();
+    auto data = controller->getData();
     ofPushMatrix();
     ofPushStyle();
     ofSetColor(255);

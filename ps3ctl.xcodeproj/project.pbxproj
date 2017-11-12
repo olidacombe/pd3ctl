@@ -14,6 +14,7 @@
 		22BD39354A30B7EBB948E47E /* ofxButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0A21ED59DB20975204AFA80 /* ofxButton.cpp */; };
 		47BEA6DA4DAB16171FF60DA8 /* Ps3Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 612BA98BED6AE98BD498D3F8 /* Ps3Controller.cpp */; };
 		4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ED32BCED5F83DF1453CC78 /* ofxLabel.cpp */; };
+		4F1505E01FB8FCFA008B1774 /* UDLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */; };
 		4F628DDE1FA243BE006FC6AE /* libhidapi.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */; };
 		61D2C1F8A206C13F1FAA8F12 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A72F4750B7E700CB6DA19139 /* ofxPanel.cpp */; };
 		631702104AFC104323A9EB79 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */; };
@@ -70,6 +71,8 @@
 		49D96829DBB97C2FDDF2BDC6 /* ofxToggle.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxToggle.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxToggle.h; sourceTree = SOURCE_ROOT; };
 		4A8963A13FA452E044DDA0F2 /* ofxSliderGroup.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSliderGroup.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxSliderGroup.cpp; sourceTree = SOURCE_ROOT; };
 		4EE8356B71976B1E3493B758 /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseGui.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
+		4F1505DE1FB8FCFA008B1774 /* UDLR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDLR.h; sourceTree = "<group>"; };
+		4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDLR.cpp; sourceTree = "<group>"; };
 		4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.0.dylib; path = "../../../../usr/local/Cellar/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib"; sourceTree = "<group>"; };
 		518AE6AD352A1C952DC3F459 /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxToggle.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
 		53E5597F601C6521CBCE9B10 /* RtMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = RtMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/libs/rtmidi/RtMidi.cpp; sourceTree = SOURCE_ROOT; };
@@ -271,6 +274,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */,
+				4F1505DE1FB8FCFA008B1774 /* UDLR.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
@@ -394,6 +399,7 @@
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				47BEA6DA4DAB16171FF60DA8 /* Ps3Controller.cpp in Sources */,
 				CE40E2F27A9B023A06262DD0 /* ofxBaseGui.cpp in Sources */,
+				4F1505E01FB8FCFA008B1774 /* UDLR.cpp in Sources */,
 				22BD39354A30B7EBB948E47E /* ofxButton.cpp in Sources */,
 				D5C7809806AC6F22A0199630 /* ofxGuiGroup.cpp in Sources */,
 				4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */,

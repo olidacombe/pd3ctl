@@ -27,6 +27,8 @@ void ofApp::setup(){
 void ofApp::update(){
     // all below may be put in a separate thread, but for now it is fine here
 
+    constexpr unsigned char channel = 1;
+
     constexpr unsigned char maxCC = 127;
     constexpr float midpoint = UCHAR_MAX/2;
     static const float maxRadius = std::sqrt(2) * midpoint;
@@ -36,10 +38,15 @@ void ofApp::update(){
     static const ofVec2f origin(midpoint, midpoint);
     static const ofVec2f xAxis(-1, 0);
 
-    static ofxMidiCCSender x1Sender{midiOut, 0, 1};
-    static ofxMidiCCSender y1Sender{midiOut, 1, 1};
-    static ofxMidiCCSender r1Sender{midiOut, 2, 1, 0, maxRadius}; // radius 1
-    static ofxMidiCCSender t1Sender{midiOut, 3, 1, -180, 180}; // argument (theta - 't') 1
+    static ofxMidiCCSender x1Sender{midiOut, 0};
+    static ofxMidiCCSender y1Sender{midiOut, 1};
+    static ofxMidiCCSender r1Sender{midiOut, 2, 0, maxRadius}; // radius 1
+    static ofxMidiCCSender t1Sender{midiOut, 3, -180, 180}; // argument (theta - 't') 1
+
+    static ofxMidiCCSender uSender{midiOut, 4};
+    static ofxMidiCCSender dSender{midiOut, 5};
+    static ofxMidiCCSender lSender{midiOut, 6};
+    static ofxMidiCCSender rSender{midiOut, 7};
 
     static ofVec2f joy1;
     static ofVec2f joy1relative;
@@ -53,6 +60,11 @@ void ofApp::update(){
 
     r1Sender(joy1relative.length());
     t1Sender(joy1relative.angle(xAxis));
+
+    uSender(controller->getCVal(v::U));
+    dSender(controller->getCVal(v::D));
+    lSender(controller->getCVal(v::L));
+    rSender(controller->getCVal(v::R));
 }
 
 //--------------------------------------------------------------

@@ -7,8 +7,8 @@ void ofApp::setup(){
 
     showDebug = false;
 
-    controller = std::make_shared<Ps3Controller>();
-    udlr = std::make_unique<UDLR>(controller);
+    controller = Ps3Controller::getOne();
+    udlr = std::make_unique<UDLR>();
     
     midiOut = std::make_shared<ofxMidiOut>();
     if(!midiOut->openVirtualPort("ps3ctl")) {
@@ -40,13 +40,23 @@ void ofApp::update(){
 
     static ofxMidiCCSender x1Sender{midiOut, 0};
     static ofxMidiCCSender y1Sender{midiOut, 1};
-    static ofxMidiCCSender r1Sender{midiOut, 2, 0, maxRadius}; // radius 1
+    static ofxMidiCCSender rad1Sender{midiOut, 2, 0, maxRadius}; // radius 1
     static ofxMidiCCSender t1Sender{midiOut, 3, -180, 180}; // argument (theta - 't') 1
 
     static ofxMidiCCSender uSender{midiOut, 4};
     static ofxMidiCCSender dSender{midiOut, 5};
     static ofxMidiCCSender lSender{midiOut, 6};
     static ofxMidiCCSender rSender{midiOut, 7};
+
+    static ofxMidiCCSender l1Sender{midiOut, 8};
+    static ofxMidiCCSender r1Sender{midiOut, 9};
+    static ofxMidiCCSender l2Sender{midiOut, 10};
+    static ofxMidiCCSender r2Sender{midiOut, 11};
+
+    static ofxMidiCCSender xSender{midiOut, 12};
+    static ofxMidiCCSender oSender{midiOut, 13};
+    static ofxMidiCCSender sqSender{midiOut, 14};
+    static ofxMidiCCSender triSender{midiOut, 15};
 
     static ofVec2f joy1;
     static ofVec2f joy1relative;
@@ -58,13 +68,23 @@ void ofApp::update(){
     x1Sender(x1);
     y1Sender(y1);
 
-    r1Sender(joy1relative.length());
+    rad1Sender(joy1relative.length());
     t1Sender(joy1relative.angle(xAxis));
 
     uSender(controller->getCVal(v::U));
     dSender(controller->getCVal(v::D));
     lSender(controller->getCVal(v::L));
     rSender(controller->getCVal(v::R));
+
+    l1Sender(controller->getCVal(v::L1));
+    r1Sender(controller->getCVal(v::R1));
+    l2Sender(controller->getCVal(v::L2));
+    r2Sender(controller->getCVal(v::R2));
+
+    xSender(controller->getCVal(v::X));
+    oSender(controller->getCVal(v::O));
+    sqSender(controller->getCVal(v::Sq));
+    triSender(controller->getCVal(v::Tri));
 }
 
 //--------------------------------------------------------------

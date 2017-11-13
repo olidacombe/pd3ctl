@@ -43,6 +43,15 @@ public:
     Ps3Controller();
     ~Ps3Controller();
 
+    static auto& getOne() {
+        static std::shared_ptr<Ps3Controller> firstController;
+
+        if(firstController == nullptr) {
+            firstController = std::make_shared<Ps3Controller>();
+        }
+
+        return firstController;
+    }
 
     //enum class CVal: decltype(inputBuffer)::size_type {
     enum CVal: bufferType::size_type {

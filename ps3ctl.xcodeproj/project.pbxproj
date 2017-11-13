@@ -74,6 +74,8 @@
 		4F1505DE1FB8FCFA008B1774 /* UDLR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDLR.h; sourceTree = "<group>"; };
 		4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDLR.cpp; sourceTree = "<group>"; };
 		4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.0.dylib; path = "../../../../usr/local/Cellar/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib"; sourceTree = "<group>"; };
+		4FC3AAD81FB9EF670001B3A2 /* Ps3Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ps3Component.h; sourceTree = "<group>"; };
+		4FC3AAD91FB9EF670001B3A2 /* MidiFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiFilter.h; sourceTree = "<group>"; };
 		518AE6AD352A1C952DC3F459 /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxToggle.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
 		53E5597F601C6521CBCE9B10 /* RtMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = RtMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/libs/rtmidi/RtMidi.cpp; sourceTree = SOURCE_ROOT; };
 		5548701AB6A19DF6D2D18211 /* ofxMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidi.cpp; sourceTree = SOURCE_ROOT; };
@@ -274,6 +276,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				4FC3AAD91FB9EF670001B3A2 /* MidiFilter.h */,
+				4FC3AAD81FB9EF670001B3A2 /* Ps3Component.h */,
 				4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */,
 				4F1505DE1FB8FCFA008B1774 /* UDLR.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
@@ -474,6 +478,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -591,6 +596,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
@@ -627,6 +633,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E4EB6923138AFD0F00A09F29 /* Project.xcconfig */;
 			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++14";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";

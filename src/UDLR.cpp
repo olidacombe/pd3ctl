@@ -1,6 +1,6 @@
 #include "UDLR.h"
 
-UDLR::UDLR(std::shared_ptr<Ps3Controller>& _controller) : controller(_controller) {
+UDLR::UDLR() {
     constexpr int width = 40;
     constexpr int height = 60;
     constexpr int padding = 15;

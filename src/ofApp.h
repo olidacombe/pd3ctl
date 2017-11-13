@@ -3,6 +3,8 @@
 #include "ofMain.h"
 #include "Ps3Controller.h"
 #include "UDLR.h"
+#include "XOTriSq.h"
+#include "LR12.h"
 #include "ofxMidi.h"
 #include "MidiFilter.h"
 
@@ -11,6 +13,8 @@ class ofApp : public ofBaseApp{
     std::shared_ptr<Ps3Controller> controller;
     std::shared_ptr<ofxMidiOut> midiOut;
     std::unique_ptr<UDLR> udlr;
+    std::unique_ptr<XOTriSq> xotrisq;
+    std::unique_ptr<LR12> lr12;
 
     bool showDebug;
 

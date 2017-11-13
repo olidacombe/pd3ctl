@@ -9,6 +9,8 @@ void ofApp::setup(){
 
     controller = Ps3Controller::getOne();
     udlr = std::make_unique<UDLR>();
+    xotrisq = std::make_unique<XOTriSq>();
+    lr12 = std::make_unique<LR12>();
     
     midiOut = std::make_shared<ofxMidiOut>();
     if(!midiOut->openVirtualPort("ps3ctl")) {
@@ -38,25 +40,32 @@ void ofApp::update(){
     static const ofVec2f origin(midpoint, midpoint);
     static const ofVec2f xAxis(-1, 0);
 
-    static ofxMidiCCSender x1Sender{midiOut, 0};
-    static ofxMidiCCSender y1Sender{midiOut, 1};
-    static ofxMidiCCSender rad1Sender{midiOut, 2, 0, maxRadius}; // radius 1
-    static ofxMidiCCSender t1Sender{midiOut, 3, -180, 180}; // argument (theta - 't') 1
+    unsigned char ccNum = 0;
 
-    static ofxMidiCCSender uSender{midiOut, 4};
-    static ofxMidiCCSender dSender{midiOut, 5};
-    static ofxMidiCCSender lSender{midiOut, 6};
-    static ofxMidiCCSender rSender{midiOut, 7};
+    static ofxMidiCCSender x1Sender{midiOut, ccNum++};
+    static ofxMidiCCSender y1Sender{midiOut, ccNum++};
+    static ofxMidiCCSender rad1Sender{midiOut, ccNum++, 0, maxRadius}; // radius 1
+    static ofxMidiCCSender t1Sender{midiOut, ccNum++, -180, 180}; // argument (theta - 't') 1
 
-    static ofxMidiCCSender l1Sender{midiOut, 8};
-    static ofxMidiCCSender r1Sender{midiOut, 9};
-    static ofxMidiCCSender l2Sender{midiOut, 10};
-    static ofxMidiCCSender r2Sender{midiOut, 11};
+    static ofxMidiCCSender x2Sender{midiOut, ccNum++};
+    static ofxMidiCCSender y2Sender{midiOut, ccNum++};
+    static ofxMidiCCSender rad2Sender{midiOut, ccNum++, 0, maxRadius}; // radius 1
+    static ofxMidiCCSender t2Sender{midiOut, ccNum++, -180, 180}; // argument (theta - 't') 1
 
-    static ofxMidiCCSender xSender{midiOut, 12};
-    static ofxMidiCCSender oSender{midiOut, 13};
-    static ofxMidiCCSender sqSender{midiOut, 14};
-    static ofxMidiCCSender triSender{midiOut, 15};
+    static ofxMidiCCSender uSender{midiOut, ccNum++};
+    static ofxMidiCCSender dSender{midiOut, ccNum++};
+    static ofxMidiCCSender lSender{midiOut, ccNum++};
+    static ofxMidiCCSender rSender{midiOut, ccNum++};
+
+    static ofxMidiCCSender l1Sender{midiOut, ccNum++};
+    static ofxMidiCCSender r1Sender{midiOut, ccNum++};
+    static ofxMidiCCSender l2Sender{midiOut, ccNum++};
+    static ofxMidiCCSender r2Sender{midiOut, ccNum++};
+
+    static ofxMidiCCSender xSender{midiOut, ccNum++};
+    static ofxMidiCCSender oSender{midiOut, ccNum++};
+    static ofxMidiCCSender sqSender{midiOut, ccNum++};
+    static ofxMidiCCSender triSender{midiOut, ccNum++};
 
     static ofVec2f joy1;
     static ofVec2f joy1relative;
@@ -101,8 +110,15 @@ void ofApp::draw(){
     drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), 3*w/4, h/2);
 
     ofPushMatrix();
-    ofTranslate(100, 100);
+    ofTranslate(w/2, 50);
+    lr12->draw();
+    ofPopMatrix();
+
+    ofPushMatrix();
+    ofTranslate(100, 200);
     udlr->draw();
+    ofTranslate(500, 0);
+    xotrisq->draw();
     ofPopMatrix();
 }
 

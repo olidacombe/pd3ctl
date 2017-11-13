@@ -16,6 +16,8 @@
 		4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ED32BCED5F83DF1453CC78 /* ofxLabel.cpp */; };
 		4F1505E01FB8FCFA008B1774 /* UDLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */; };
 		4F628DDE1FA243BE006FC6AE /* libhidapi.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */; };
+		4FFDBC1B1FBA5C7E009DAA87 /* XOTriSq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDBC191FBA5C7D009DAA87 /* XOTriSq.cpp */; };
+		4FFDBC1E1FBA6049009DAA87 /* LR12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDBC1D1FBA6049009DAA87 /* LR12.cpp */; };
 		61D2C1F8A206C13F1FAA8F12 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A72F4750B7E700CB6DA19139 /* ofxPanel.cpp */; };
 		631702104AFC104323A9EB79 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81AC32CCCB56FAABA3E1BDE0 /* CoreMIDI.framework */; };
 		635AE4BD1CB2FEA01332D2AB /* ofxMidi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5548701AB6A19DF6D2D18211 /* ofxMidi.cpp */; };
@@ -76,6 +78,10 @@
 		4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.0.dylib; path = "../../../../usr/local/Cellar/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib"; sourceTree = "<group>"; };
 		4FC3AAD81FB9EF670001B3A2 /* Ps3Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ps3Component.h; sourceTree = "<group>"; };
 		4FC3AAD91FB9EF670001B3A2 /* MidiFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiFilter.h; sourceTree = "<group>"; };
+		4FFDBC191FBA5C7D009DAA87 /* XOTriSq.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XOTriSq.cpp; sourceTree = "<group>"; };
+		4FFDBC1A1FBA5C7D009DAA87 /* XOTriSq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XOTriSq.h; sourceTree = "<group>"; };
+		4FFDBC1C1FBA6048009DAA87 /* LR12.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LR12.h; sourceTree = "<group>"; };
+		4FFDBC1D1FBA6049009DAA87 /* LR12.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LR12.cpp; sourceTree = "<group>"; };
 		518AE6AD352A1C952DC3F459 /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxToggle.cpp; path = ../../src/openFrameworks/addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
 		53E5597F601C6521CBCE9B10 /* RtMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = RtMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/libs/rtmidi/RtMidi.cpp; sourceTree = SOURCE_ROOT; };
 		5548701AB6A19DF6D2D18211 /* ofxMidi.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxMidi.cpp; path = ../../src/openFrameworks/addons/ofxMidi/src/ofxMidi.cpp; sourceTree = SOURCE_ROOT; };
@@ -276,6 +282,10 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				4FFDBC1D1FBA6049009DAA87 /* LR12.cpp */,
+				4FFDBC1C1FBA6048009DAA87 /* LR12.h */,
+				4FFDBC191FBA5C7D009DAA87 /* XOTriSq.cpp */,
+				4FFDBC1A1FBA5C7D009DAA87 /* XOTriSq.h */,
 				4FC3AAD91FB9EF670001B3A2 /* MidiFilter.h */,
 				4FC3AAD81FB9EF670001B3A2 /* Ps3Component.h */,
 				4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */,
@@ -400,8 +410,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				4FFDBC1B1FBA5C7E009DAA87 /* XOTriSq.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				47BEA6DA4DAB16171FF60DA8 /* Ps3Controller.cpp in Sources */,
+				4FFDBC1E1FBA6049009DAA87 /* LR12.cpp in Sources */,
 				CE40E2F27A9B023A06262DD0 /* ofxBaseGui.cpp in Sources */,
 				4F1505E01FB8FCFA008B1774 /* UDLR.cpp in Sources */,
 				22BD39354A30B7EBB948E47E /* ofxButton.cpp in Sources */,

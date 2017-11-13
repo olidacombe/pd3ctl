@@ -24,10 +24,7 @@ UDLR::UDLR() {
     UButton.addIndex(1);
 }
 
-UDLR::~UDLR() {
-
-}
-
+/*
 const ofColor& UDLR::getColor(const float& val) {
     static ofColor c;
 
@@ -35,6 +32,7 @@ const ofColor& UDLR::getColor(const float& val) {
 
     return c;
 }
+*/
 
 void UDLR::draw() {
 

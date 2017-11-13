@@ -7,11 +7,10 @@ class UDLR : public Ps3Component {
     
     ofVboMesh UButton; // up button
 
-    const ofColor& getColor(const float& val);
+    //const ofColor& getColor(const float& val);
     
 	public:
         UDLR();
-        ~UDLR();
         void draw() override;
 		
 };

@@ -4,8 +4,8 @@
 
 class LR12 : public Ps3Component {
 
-    static constexpr float buttonHeight = 20;
-    static constexpr float buttonWidth = 40;
+    static constexpr float buttonHeight = 40;
+    static constexpr float buttonWidth = 100;
 
     ofVboMesh Button;
 

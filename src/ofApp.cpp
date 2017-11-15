@@ -106,8 +106,8 @@ void ofApp::draw(){
 
     using v = Ps3Controller::CVal;
 
-    drawJoystick(controller->getCVal(v::L_x), controller->getCVal(v::L_y), w/4, h/2);
-    drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), 3*w/4, h/2);
+    drawJoystick(controller->getCVal(v::L_x), controller->getCVal(v::L_y), 200, 400);
+    drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), w-200, 400);
 
     ofPushMatrix();
     ofTranslate(w/2, 50);
@@ -115,9 +115,11 @@ void ofApp::draw(){
     ofPopMatrix();
 
     ofPushMatrix();
-    ofTranslate(100, 200);
+    ofTranslate(200, 220);
     udlr->draw();
-    ofTranslate(500, 0);
+    ofPopMatrix();
+    ofPushMatrix();
+    ofTranslate(w - 200, 220);
     xotrisq->draw();
     ofPopMatrix();
 }

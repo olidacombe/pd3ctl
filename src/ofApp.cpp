@@ -174,6 +174,34 @@ void ofApp::draw(){
     ofTranslate(w - 200, 220);
     xotrisq->draw();
     ofPopMatrix();
+
+    ofPushMatrix();
+    ofTranslate(10, h - 20);
+    showStatus();
+    ofPopMatrix();
+
+}
+
+void ofApp::showStatus() {
+    constexpr int lineStep = -20;
+    //ofPushMatrix();
+    ofPushStyle();
+
+    ofSetColor(255, 0, 0);
+    if(joyMute) {
+        ofDrawBitmapString("Joystick mute", 0, 0);
+        ofTranslate(0, lineStep);
+    }
+    if(ccMute) {
+        ofDrawBitmapString("CC mute", 0, 0);
+        ofTranslate(0, lineStep);
+    }
+    if(noteMute) {
+        ofDrawBitmapString("Note mute", 0, 0);
+    }
+
+    ofPopStyle();
+    //ofPopMatrix();
 }
 
 
@@ -212,10 +240,41 @@ void ofApp::drawDebug() {
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+
+    /* mapping sender keys:
+     *
+     * q -> yl
+     * w -> yl bottom hemi clamp
+     * e -> yl top hemi clamp
+     * r -> radius l
+     * t -> theta l
+     * a -> xl
+     * s -> xl left hemi
+     * d -> xl right hemi
+     *
+     * y -> yr
+     * u -> yr bottom hemi clamp
+     * i -> yr top hemi clamp
+     * o -> radius r
+     * p -> theta r
+     * h -> xr
+     * j -> xr left hemi
+     * k -> xr right hemi
+     */
+
+
     switch(key) {
         case 'd':
             showDebug = !showDebug;
             break;
+        case 'm':
+            joyMute = !joyMute;
+            break;
+        case 'c':
+            ccMute = !ccMute;
+            break;
+        case 'n':
+            noteMute = !noteMute;
         default:
             break;
     }

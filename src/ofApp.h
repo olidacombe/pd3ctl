@@ -20,6 +20,7 @@ class ofApp : public ofBaseApp{
     bool joyMute, ccMute, noteMute;
 
     void drawDebug();
+    void showStatus();
     template <class T>
     void drawJoystick(const T& xVal, const T& yVal, const float &x=0, const float &y=0);
 

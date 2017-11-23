@@ -21,6 +21,19 @@ void ofApp::setup(){
         ofExit();
     }
 
+    ccNumInitializer = 0;
+    static const float maxRadius = std::sqrt(2) * (UCHAR_MAX/2);
+
+    x1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    y1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    rad1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 1
+    t1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 1
+
+    x2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    y2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    rad2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 1
+    t2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 1
+
     ofSetBackgroundAuto(true);
     ofColor colorOne(15);
     ofColor colorTwo(35);
@@ -36,66 +49,65 @@ void ofApp::update(){
 
     constexpr unsigned char maxCC = 127;
     constexpr float midpoint = UCHAR_MAX/2;
-    static const float maxRadius = std::sqrt(2) * midpoint;
 
     using v = Ps3Controller::CVal;
 
     static const ofVec2f origin(midpoint, midpoint);
     static const ofVec2f xAxis(-1, 0);
 
-    unsigned char ccNum = 0;
+    static ofxMidiNoteSender uNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender uSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender dNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender dSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender lNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender lSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender rNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender rSender{midiOut, ccNumInitializer++};
 
-    static ofxMidiCCSender x1Sender{midiOut, ccNum++};
-    static ofxMidiCCSender y1Sender{midiOut, ccNum++};
-    static ofxMidiCCSender rad1Sender{midiOut, ccNum++, 0, maxRadius}; // radius 1
-    static ofxMidiCCSender t1Sender{midiOut, ccNum++, -180, 180}; // argument (theta - 't') 1
+    static ofxMidiNoteSender l1NoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender l1Sender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender r1NoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender r1Sender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender l2NoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender l2Sender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender r2NoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender r2Sender{midiOut, ccNumInitializer++};
 
-    static ofxMidiCCSender x2Sender{midiOut, ccNum++};
-    static ofxMidiCCSender y2Sender{midiOut, ccNum++};
-    static ofxMidiCCSender rad2Sender{midiOut, ccNum++, 0, maxRadius}; // radius 1
-    static ofxMidiCCSender t2Sender{midiOut, ccNum++, -180, 180}; // argument (theta - 't') 1
-
-    static ofxMidiNoteSender uNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender uSender{midiOut, ccNum++};
-    static ofxMidiNoteSender dNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender dSender{midiOut, ccNum++};
-    static ofxMidiNoteSender lNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender lSender{midiOut, ccNum++};
-    static ofxMidiNoteSender rNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender rSender{midiOut, ccNum++};
-
-    static ofxMidiNoteSender l1NoteSender{midiOut, ccNum};
-    static ofxMidiCCSender l1Sender{midiOut, ccNum++};
-    static ofxMidiNoteSender r1NoteSender{midiOut, ccNum};
-    static ofxMidiCCSender r1Sender{midiOut, ccNum++};
-    static ofxMidiNoteSender l2NoteSender{midiOut, ccNum};
-    static ofxMidiCCSender l2Sender{midiOut, ccNum++};
-    static ofxMidiNoteSender r2NoteSender{midiOut, ccNum};
-    static ofxMidiCCSender r2Sender{midiOut, ccNum++};
-
-    static ofxMidiNoteSender xNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender xSender{midiOut, ccNum++};
-    static ofxMidiNoteSender oNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender oSender{midiOut, ccNum++};
-    static ofxMidiNoteSender sqNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender sqSender{midiOut, ccNum++};
-    static ofxMidiNoteSender triNoteSender{midiOut, ccNum};
-    static ofxMidiCCSender triSender{midiOut, ccNum++};
+    static ofxMidiNoteSender xNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender xSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender oNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender oSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender sqNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender sqSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender triNoteSender{midiOut, ccNumInitializer};
+    static ofxMidiCCSender triSender{midiOut, ccNumInitializer++};
 
 
     static ofVec2f joy1;
     static ofVec2f joy1relative;
+    static ofVec2f joy2;
+    static ofVec2f joy2relative;
 
     if(!joyMute) {
         const auto x1 = controller->getCVal(v::L_x);
         const auto y1 = controller->getCVal(v::L_y);
         joy1.set(x1, y1);
         joy1relative = joy1 - origin;
-        x1Sender(x1);
-        y1Sender(y1);
+        (*x1Sender)(x1);
+        (*y1Sender)(y1);
 
-        rad1Sender(joy1relative.length());
-        t1Sender(joy1relative.angle(xAxis));
+        (*rad1Sender)(joy1relative.length());
+        (*t1Sender)(joy1relative.angle(xAxis));
+
+        const auto x2 = controller->getCVal(v::R_x);
+        const auto y2 = controller->getCVal(v::R_y);
+        joy2.set(x2, y2);
+        joy2relative = joy2 - origin;
+        (*x2Sender)(x2);
+        (*y2Sender)(y2);
+
+        (*rad2Sender)(joy2relative.length());
+        (*t2Sender)(joy2relative.angle(xAxis));
     }
 
     const auto u = controller->getCVal(v::U);

@@ -16,6 +16,9 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<XOTriSq> xotrisq;
     std::unique_ptr<LR12> lr12;
 
+    std::unique_ptr<ofxMidiCCSender> x1Sender, y1Sender, rad1Sender, t1Sender;
+    std::unique_ptr<ofxMidiCCSender> x2Sender, y2Sender, rad2Sender, t2Sender;
+
     bool showDebug;
     bool joyMute, ccMute, noteMute;
 
@@ -23,6 +26,8 @@ class ofApp : public ofBaseApp{
     void showStatus();
     template <class T>
     void drawJoystick(const T& xVal, const T& yVal, const float &x=0, const float &y=0);
+
+    unsigned char ccNumInitializer;
 
 	public:
 		void setup();

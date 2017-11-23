@@ -6,6 +6,9 @@ void ofApp::setup(){
     ofSetFrameRate(60);
 
     showDebug = false;
+    joyMute = false;
+    ccMute = false;
+    noteMute = false;
 
     controller = Ps3Controller::getOne();
     udlr = std::make_unique<UDLR>();
@@ -52,48 +55,97 @@ void ofApp::update(){
     static ofxMidiCCSender rad2Sender{midiOut, ccNum++, 0, maxRadius}; // radius 1
     static ofxMidiCCSender t2Sender{midiOut, ccNum++, -180, 180}; // argument (theta - 't') 1
 
+    static ofxMidiNoteSender uNoteSender{midiOut, ccNum};
     static ofxMidiCCSender uSender{midiOut, ccNum++};
+    static ofxMidiNoteSender dNoteSender{midiOut, ccNum};
     static ofxMidiCCSender dSender{midiOut, ccNum++};
+    static ofxMidiNoteSender lNoteSender{midiOut, ccNum};
     static ofxMidiCCSender lSender{midiOut, ccNum++};
+    static ofxMidiNoteSender rNoteSender{midiOut, ccNum};
     static ofxMidiCCSender rSender{midiOut, ccNum++};
 
+    static ofxMidiNoteSender l1NoteSender{midiOut, ccNum};
     static ofxMidiCCSender l1Sender{midiOut, ccNum++};
+    static ofxMidiNoteSender r1NoteSender{midiOut, ccNum};
     static ofxMidiCCSender r1Sender{midiOut, ccNum++};
+    static ofxMidiNoteSender l2NoteSender{midiOut, ccNum};
     static ofxMidiCCSender l2Sender{midiOut, ccNum++};
+    static ofxMidiNoteSender r2NoteSender{midiOut, ccNum};
     static ofxMidiCCSender r2Sender{midiOut, ccNum++};
 
+    static ofxMidiNoteSender xNoteSender{midiOut, ccNum};
     static ofxMidiCCSender xSender{midiOut, ccNum++};
+    static ofxMidiNoteSender oNoteSender{midiOut, ccNum};
     static ofxMidiCCSender oSender{midiOut, ccNum++};
+    static ofxMidiNoteSender sqNoteSender{midiOut, ccNum};
     static ofxMidiCCSender sqSender{midiOut, ccNum++};
+    static ofxMidiNoteSender triNoteSender{midiOut, ccNum};
     static ofxMidiCCSender triSender{midiOut, ccNum++};
+
 
     static ofVec2f joy1;
     static ofVec2f joy1relative;
 
-    const auto x1 = controller->getCVal(v::L_x);
-    const auto y1 = controller->getCVal(v::L_y);
-    joy1.set(x1, y1);
-    joy1relative = joy1 - origin;
-    x1Sender(x1);
-    y1Sender(y1);
+    if(!joyMute) {
+        const auto x1 = controller->getCVal(v::L_x);
+        const auto y1 = controller->getCVal(v::L_y);
+        joy1.set(x1, y1);
+        joy1relative = joy1 - origin;
+        x1Sender(x1);
+        y1Sender(y1);
 
-    rad1Sender(joy1relative.length());
-    t1Sender(joy1relative.angle(xAxis));
+        rad1Sender(joy1relative.length());
+        t1Sender(joy1relative.angle(xAxis));
+    }
 
-    uSender(controller->getCVal(v::U));
-    dSender(controller->getCVal(v::D));
-    lSender(controller->getCVal(v::L));
-    rSender(controller->getCVal(v::R));
+    const auto u = controller->getCVal(v::U);
+    const auto d = controller->getCVal(v::D);
+    const auto l = controller->getCVal(v::L);
+    const auto r = controller->getCVal(v::R);
 
-    l1Sender(controller->getCVal(v::L1));
-    r1Sender(controller->getCVal(v::R1));
-    l2Sender(controller->getCVal(v::L2));
-    r2Sender(controller->getCVal(v::R2));
+    const auto l1 = controller->getCVal(v::L1);
+    const auto r1 = controller->getCVal(v::R1);
+    const auto l2 = controller->getCVal(v::L2);
+    const auto r2 = controller->getCVal(v::R2);
 
-    xSender(controller->getCVal(v::X));
-    oSender(controller->getCVal(v::O));
-    sqSender(controller->getCVal(v::Sq));
-    triSender(controller->getCVal(v::Tri));
+    const auto x = controller->getCVal(v::X);
+    const auto o = controller->getCVal(v::O);
+    const auto sq = controller->getCVal(v::Sq);
+    const auto tri = controller->getCVal(v::Tri);
+
+    if(!noteMute) {
+        uNoteSender(u);
+        dNoteSender(d);
+        lNoteSender(l);
+        rNoteSender(r);
+
+        l1NoteSender(l1);
+        r1NoteSender(r1);
+        l2NoteSender(l2);
+        r2NoteSender(r2);
+
+        xNoteSender(x);
+        oNoteSender(o);
+        sqNoteSender(sq);
+        triNoteSender(tri);
+    }
+
+    if(!ccMute) {
+        uSender(u);
+        dSender(d);
+        lSender(l);
+        rSender(r);
+
+        l1Sender(l1);
+        r1Sender(r1);
+        l2Sender(l2);
+        r2Sender(r2);
+
+        xSender(x);
+        oSender(o);
+        sqSender(sq);
+        triSender(tri);
+    }
 }
 
 //--------------------------------------------------------------

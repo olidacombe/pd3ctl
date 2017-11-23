@@ -17,6 +17,7 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<LR12> lr12;
 
     bool showDebug;
+    bool joyMute, ccMute, noteMute;
 
     void drawDebug();
     template <class T>

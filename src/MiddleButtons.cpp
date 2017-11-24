@@ -27,7 +27,7 @@ MiddleButtons::MiddleButtons() {
 
 void MiddleButtons::draw() {
     static constexpr float hOffset = 50;
-    static constexpr float vOffset = 10;
+    static constexpr float vOffset = 40;
 
     ofPushStyle();
     ofPushMatrix();

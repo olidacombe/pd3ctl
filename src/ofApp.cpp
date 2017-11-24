@@ -275,7 +275,7 @@ void ofApp::drawDebug() {
 void ofApp::keyPressed(int key){
 
     switch(key) {
-        case 'd':
+        case 'D':
             showDebug = !showDebug;
             break;
         case 'm':
@@ -318,8 +318,10 @@ void ofApp::keyPressed(int key){
                 y1Sender->bang();
                 break;
             case 'w':
+                y1Hemi1Sender->bang();
                 break;
             case 'e':
+                y1Hemi2Sender->bang();
                 break;
             case 'r':
                 rad1Sender->bang();
@@ -331,17 +333,25 @@ void ofApp::keyPressed(int key){
                 x1Sender->bang();
                 break;
             case 's':
+                x1Hemi1Sender->bang();
                 break;
             case 'd':
+                x1Hemi2Sender->bang();
+                break;
+            case '6': // select
                 break;
 
             //right
+            case '7': // start
+                break;
             case 'y':
                 y2Sender->bang();
                 break;
             case 'u':
+                y2Hemi1Sender->bang();
                 break;
             case 'i':
+                y2Hemi2Sender->bang();
                 break;
             case 'o':
                 rad2Sender->bang();
@@ -353,8 +363,10 @@ void ofApp::keyPressed(int key){
                 x2Sender->bang();
                 break;
             case 'j':
+                x2Hemi1Sender->bang();
                 break;
             case 'k':
+                x2Hemi2Sender->bang();
                 break;
                 
             default:

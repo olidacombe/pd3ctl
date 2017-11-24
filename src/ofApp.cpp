@@ -25,14 +25,22 @@ void ofApp::setup(){
     static const float maxRadius = std::sqrt(2) * (UCHAR_MAX/2);
 
     x1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    x1Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    x1Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    y1Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    y1Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     rad1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 1
     t1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 1
 
     x2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    x2Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    x2Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    rad2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 1
-    t2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 1
+    y2Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    y2Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    rad2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 2
+    t2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 2
 
     ofSetBackgroundAuto(true);
     ofColor colorOne(15);
@@ -91,11 +99,21 @@ void ofApp::update(){
     if(!joyMute) {
         const auto x1 = controller->getCVal(v::L_x);
         const auto y1 = controller->getCVal(v::L_y);
+        using T = decltype(x1);
+        static auto LowerHemi = [](const T &v) {
+            return static_cast<T>(ofMap(midpoint - v, 0, midpoint, 0, UCHAR_MAX, true));
+        };
+        static auto UpperHemi = [](const T &v) {
+            return static_cast<T>(ofMap(v - midpoint, 0, midpoint, 0, UCHAR_MAX, true));
+        };
         joy1.set(x1, y1);
         joy1relative = joy1 - origin;
         (*x1Sender)(x1);
+        (*x1Hemi1Sender)(LowerHemi(x1));
+        (*x1Hemi2Sender)(UpperHemi(x1));
         (*y1Sender)(y1);
-
+        (*y1Hemi1Sender)(LowerHemi(y1));
+        (*y1Hemi2Sender)(UpperHemi(y1));
         (*rad1Sender)(joy1relative.length());
         (*t1Sender)(joy1relative.angle(xAxis));
 
@@ -104,8 +122,11 @@ void ofApp::update(){
         joy2.set(x2, y2);
         joy2relative = joy2 - origin;
         (*x2Sender)(x2);
+        (*x2Hemi1Sender)(LowerHemi(x2));
+        (*x2Hemi2Sender)(UpperHemi(x2));
         (*y2Sender)(y2);
-
+        (*y2Hemi1Sender)(LowerHemi(y2));
+        (*y2Hemi2Sender)(UpperHemi(y2));
         (*rad2Sender)(joy2relative.length());
         (*t2Sender)(joy2relative.angle(xAxis));
     }
@@ -253,6 +274,23 @@ void ofApp::drawDebug() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
 
+    switch(key) {
+        case 'd':
+            showDebug = !showDebug;
+            break;
+        case 'm':
+            joyMute = !joyMute;
+            break;
+        case 'c':
+            ccMute = !ccMute;
+            break;
+        case 'n':
+            noteMute = !noteMute;
+            break;
+        default:
+            break;
+    }
+
     /* mapping sender keys:
      *
      * q -> yl
@@ -273,22 +311,55 @@ void ofApp::keyPressed(int key){
      * j -> xr left hemi
      * k -> xr right hemi
      */
+    if(joyMute) {
+        switch(key) {
+            // left
+            case 'q':
+                y1Sender->bang();
+                break;
+            case 'w':
+                break;
+            case 'e':
+                break;
+            case 'r':
+                rad1Sender->bang();
+                break;
+            case 't':
+                t1Sender->bang();
+                break;
+            case 'a':
+                x1Sender->bang();
+                break;
+            case 's':
+                break;
+            case 'd':
+                break;
 
-
-    switch(key) {
-        case 'd':
-            showDebug = !showDebug;
-            break;
-        case 'm':
-            joyMute = !joyMute;
-            break;
-        case 'c':
-            ccMute = !ccMute;
-            break;
-        case 'n':
-            noteMute = !noteMute;
-        default:
-            break;
+            //right
+            case 'y':
+                y2Sender->bang();
+                break;
+            case 'u':
+                break;
+            case 'i':
+                break;
+            case 'o':
+                rad2Sender->bang();
+                break;
+            case 'p':
+                t2Sender->bang();
+                break;
+            case 'h':
+                x2Sender->bang();
+                break;
+            case 'j':
+                break;
+            case 'k':
+                break;
+                
+            default:
+                break;
+        }
     }
 }
 

@@ -16,8 +16,10 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<XOTriSq> xotrisq;
     std::unique_ptr<LR12> lr12;
 
-    std::unique_ptr<ofxMidiCCSender> x1Sender, y1Sender, rad1Sender, t1Sender;
-    std::unique_ptr<ofxMidiCCSender> x2Sender, y2Sender, rad2Sender, t2Sender;
+    std::unique_ptr<ofxMidiCCSender> x1Sender, x1Hemi1Sender, x1Hemi2Sender,
+        y1Sender, y1Hemi1Sender, y1Hemi2Sender, rad1Sender, t1Sender;
+    std::unique_ptr<ofxMidiCCSender> x2Sender, x2Hemi1Sender, x2Hemi2Sender,
+        y2Sender, y2Hemi1Sender, y2Hemi2Sender, rad2Sender, t2Sender;
 
     bool showDebug;
     bool joyMute, ccMute, noteMute;

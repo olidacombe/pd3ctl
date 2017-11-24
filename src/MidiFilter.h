@@ -40,6 +40,11 @@ public:
         assert(cc<128);
     }
 
+    void bang() {
+        midiOut->sendControlChange(ch, cc, (lastValue > 63) ? 63 : 64);
+        midiOut->sendControlChange(ch, cc, lastValue);
+    }
+
     void operator() (const unsigned char& v) {
         sendIfChanged(v);
     }
@@ -72,6 +77,11 @@ public:
         ofxMidiSender(out, channel), n(noteNum), velocity(0)
     {
         assert(n<128);
+    }
+
+    void bang() {
+        midiOut->sendNoteOn(ch, n, 127);
+        midiOut->sendNoteOff(ch, n, 0);
     }
 
     void operator() (const unsigned char& v) {

@@ -59,6 +59,7 @@ void ofApp::update(){
     constexpr float midpoint = UCHAR_MAX/2;
 
     using v = Ps3Controller::CVal;
+    using bmask = Ps3Controller::BMask;
 
     static const ofVec2f origin(midpoint, midpoint);
     static const ofVec2f xAxis(-1, 0);
@@ -90,6 +91,11 @@ void ofApp::update(){
     static ofxMidiNoteSender triNoteSender{midiOut, ccNumInitializer};
     static ofxMidiCCSender triSender{midiOut, ccNumInitializer++};
 
+    static ofxMidiNoteSender JoyLSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender JoyRSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender StartSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender SelectSender{midiOut, ccNumInitializer++};
+    static ofxMidiNoteSender PSSender{midiOut, ccNumInitializer++};
 
     static ofVec2f joy1;
     static ofVec2f joy1relative;
@@ -161,6 +167,21 @@ void ofApp::update(){
         oNoteSender(o);
         sqNoteSender(sq);
         triNoteSender(tri);
+
+        const auto sw_buts = controller->getCVal(v::SW_buttons);
+        constexpr unsigned char digitalButtonVelocity = 127;
+        const unsigned char joyL = (sw_buts & bmask::JoyL) ? digitalButtonVelocity : 0;
+        const unsigned char select = (sw_buts & bmask::Select) ? digitalButtonVelocity : 0;
+        const unsigned char ps = controller->getCVal(v::PS) ? digitalButtonVelocity : 0;
+        const unsigned char start = (sw_buts & bmask::Start) ? digitalButtonVelocity : 0;
+        const unsigned char joyR = (sw_buts & bmask::JoyR) ? digitalButtonVelocity : 0;
+
+        JoyLSender(joyL);
+        SelectSender(select);
+        PSSender(ps);
+        StartSender(start);
+        JoyRSender(joyR);
+        
     }
 
     if(!ccMute) {
@@ -190,9 +211,14 @@ void ofApp::draw(){
     if(showDebug) drawDebug();
 
     using v = Ps3Controller::CVal;
+    using bmask = Ps3Controller::BMask;
 
-    drawJoystick(controller->getCVal(v::L_x), controller->getCVal(v::L_y), 200, 400);
-    drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), w-200, 400);
+    const auto sw_buts = controller->getCVal(v::SW_buttons);
+
+    const bool lj = sw_buts & bmask::JoyL;
+    const bool rj = sw_buts & bmask::JoyR;
+    drawJoystick(controller->getCVal(v::L_x), controller->getCVal(v::L_y), lj, 200, 400);
+    drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), rj, w-200, 400);
 
     ofPushMatrix();
     ofTranslate(w/2, 50);
@@ -239,18 +265,26 @@ void ofApp::showStatus() {
 
 
 template <class T>
-void ofApp::drawJoystick(const T& xVal, const T& yVal, const float &x, const float &y) {
+void ofApp::drawJoystick(const T& xVal, const T& yVal, const bool pressed, const float &x, const float &y) {
     constexpr float joyDrawRadius = 100;
     constexpr int joyDrawSize = 2;
     constexpr T maxValue= std::numeric_limits<T>::max();
 
+    const auto plotX = ofMap(xVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius);
+    const auto plotY = ofMap(yVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius);
+
     ofPushMatrix();
     ofTranslate(x, y);
     
-    ofDrawCircle(
-        ofMap(xVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius),
-        ofMap(yVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius),
-    joyDrawSize);
+    if(pressed) {
+        ofPushStyle();
+        ofSetColor(0xff, 0xff, 0xff, 0x7f);
+        ofDrawCircle(0, 0, joyDrawRadius / 2);
+        ofPopStyle();
+        ofDrawLine(0, 0, plotX, plotY);
+    }
+
+    ofDrawCircle(plotX, plotY, joyDrawSize);
 
     ofPopMatrix();
 }

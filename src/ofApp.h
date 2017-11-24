@@ -27,7 +27,7 @@ class ofApp : public ofBaseApp{
     void drawDebug();
     void showStatus();
     template <class T>
-    void drawJoystick(const T& xVal, const T& yVal, const float &x=0, const float &y=0);
+    void drawJoystick(const T& xVal, const T& yVal, const bool pressed=false, const float &x=0, const float &y=0);
 
     unsigned char ccNumInitializer;
 

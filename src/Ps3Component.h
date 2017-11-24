@@ -7,6 +7,7 @@ class Ps3Component {
 
     protected:
         using v = Ps3Controller::CVal;
+        using bmask = Ps3Controller::BMask;
 
         std::shared_ptr<Ps3Controller> controller;
 

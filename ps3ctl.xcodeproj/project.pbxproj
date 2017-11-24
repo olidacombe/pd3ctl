@@ -16,6 +16,7 @@
 		4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ED32BCED5F83DF1453CC78 /* ofxLabel.cpp */; };
 		4F1505E01FB8FCFA008B1774 /* UDLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */; };
 		4F628DDE1FA243BE006FC6AE /* libhidapi.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */; };
+		4F8346DA1FC885FC0089B9D1 /* MiddleButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8346D91FC885FB0089B9D1 /* MiddleButtons.cpp */; };
 		4FFDBC1B1FBA5C7E009DAA87 /* XOTriSq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDBC191FBA5C7D009DAA87 /* XOTriSq.cpp */; };
 		4FFDBC1E1FBA6049009DAA87 /* LR12.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDBC1D1FBA6049009DAA87 /* LR12.cpp */; };
 		61D2C1F8A206C13F1FAA8F12 /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A72F4750B7E700CB6DA19139 /* ofxPanel.cpp */; };
@@ -76,6 +77,8 @@
 		4F1505DE1FB8FCFA008B1774 /* UDLR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDLR.h; sourceTree = "<group>"; };
 		4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDLR.cpp; sourceTree = "<group>"; };
 		4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.0.dylib; path = "../../../../usr/local/Cellar/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib"; sourceTree = "<group>"; };
+		4F8346D81FC885FB0089B9D1 /* MiddleButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiddleButtons.h; sourceTree = "<group>"; };
+		4F8346D91FC885FB0089B9D1 /* MiddleButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MiddleButtons.cpp; sourceTree = "<group>"; };
 		4FC3AAD81FB9EF670001B3A2 /* Ps3Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ps3Component.h; sourceTree = "<group>"; };
 		4FC3AAD91FB9EF670001B3A2 /* MidiFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MidiFilter.h; sourceTree = "<group>"; };
 		4FFDBC191FBA5C7D009DAA87 /* XOTriSq.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = XOTriSq.cpp; sourceTree = "<group>"; };
@@ -282,6 +285,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				4F8346D91FC885FB0089B9D1 /* MiddleButtons.cpp */,
+				4F8346D81FC885FB0089B9D1 /* MiddleButtons.h */,
 				4FFDBC1D1FBA6049009DAA87 /* LR12.cpp */,
 				4FFDBC1C1FBA6048009DAA87 /* LR12.h */,
 				4FFDBC191FBA5C7D009DAA87 /* XOTriSq.cpp */,
@@ -416,6 +421,7 @@
 				4FFDBC1E1FBA6049009DAA87 /* LR12.cpp in Sources */,
 				CE40E2F27A9B023A06262DD0 /* ofxBaseGui.cpp in Sources */,
 				4F1505E01FB8FCFA008B1774 /* UDLR.cpp in Sources */,
+				4F8346DA1FC885FC0089B9D1 /* MiddleButtons.cpp in Sources */,
 				22BD39354A30B7EBB948E47E /* ofxButton.cpp in Sources */,
 				D5C7809806AC6F22A0199630 /* ofxGuiGroup.cpp in Sources */,
 				4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */,

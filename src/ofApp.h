@@ -5,6 +5,7 @@
 #include "UDLR.h"
 #include "XOTriSq.h"
 #include "LR12.h"
+#include "MiddleButtons.h"
 #include "ofxMidi.h"
 #include "MidiFilter.h"
 
@@ -15,6 +16,7 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<UDLR> udlr;
     std::unique_ptr<XOTriSq> xotrisq;
     std::unique_ptr<LR12> lr12;
+    std::unique_ptr<MiddleButtons> middleButtons;
 
     std::unique_ptr<ofxMidiCCSender> x1Sender, x1Hemi1Sender, x1Hemi2Sender,
         y1Sender, y1Hemi1Sender, y1Hemi2Sender, rad1Sender, t1Sender;

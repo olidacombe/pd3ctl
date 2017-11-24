@@ -14,6 +14,7 @@ void ofApp::setup(){
     udlr = std::make_unique<UDLR>();
     xotrisq = std::make_unique<XOTriSq>();
     lr12 = std::make_unique<LR12>();
+    middleButtons = std::make_unique<MiddleButtons>();
     
     midiOut = std::make_shared<ofxMidiOut>();
     if(!midiOut->openVirtualPort("ps3ctl")) {
@@ -220,17 +221,25 @@ void ofApp::draw(){
     drawJoystick(controller->getCVal(v::L_x), controller->getCVal(v::L_y), lj, 200, 400);
     drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), rj, w-200, 400);
 
+    constexpr int midline = 220;
+
     ofPushMatrix();
     ofTranslate(w/2, 50);
     lr12->draw();
     ofPopMatrix();
 
     ofPushMatrix();
-    ofTranslate(200, 220);
+    ofTranslate(200, midline);
     udlr->draw();
     ofPopMatrix();
+
     ofPushMatrix();
-    ofTranslate(w - 200, 220);
+    ofTranslate(w/2, midline);
+    middleButtons->draw();
+    ofPopMatrix();
+
+    ofPushMatrix();
+    ofTranslate(w - 200, midline);
     xotrisq->draw();
     ofPopMatrix();
 

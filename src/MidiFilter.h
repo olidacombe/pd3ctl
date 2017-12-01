@@ -4,19 +4,59 @@
 
 constexpr unsigned char maxCC = 127;
 constexpr unsigned char maxVelocity = 127;
+constexpr unsigned char defaultChannel = 1;
 
-class ofxMidiSender {
+class MidiSource {
+    std::vector<std::shared_ptr<MidiSink>> destinations;
+public:
+    void addSink(std::shared_ptr<MidiSink>& sink) {
+        destinations.emplace_back(sink);
+    }
+}
 
-protected:
-    std::shared_ptr<ofxMidiOut> midiOut;
+class MidiSink {
     unsigned char ch; // channel
 
 public:
+    MidiSink(const unsigned char channel=defaultChannel) : ch(defaultChannel)
+    {
+        setChannel(channel);
+    }
+
+    void addSource(
+
+    void setChannel(const unsigned char channel) {
+        // assert instead?
+        if(channel < 16) ch = channel;
+    }
+    virtual void sendCC(unsigned char cc, unsigned char value) const = delete;
+    virtual void sendNote(unsigned char note, unsigned char velocity) const = delete;
+};
+
+class ofxMidiSink : MidiSink {
+
+    std::shared_ptr<ofxMidiOut> midiOut;
+
+public:
+
+    ofxMidiSink(const std::shared_ptr<ofxMidiOut>& outchannel=defaultChannel) : MidiSink(channel)
+    {
+        
+    }
+};
+
+class ofxMidiSender : ofxMidiSink {
+
+protected:
+    std::shared_ptr<ofxMidiOut> midiOut;
+
+public:
     ofxMidiSender(const std::shared_ptr<ofxMidiOut>& out, const unsigned char channel=1) :
-        ch(channel), midiOut(out)
+        MidiSink(channel), midiOut(out)
     {
         assert(ch<16);
     }
+
 };
 
 class ofxMidiCCSender : public ofxMidiSender {

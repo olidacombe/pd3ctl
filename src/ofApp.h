@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxGui.h"
 #include "Ps3Controller.h"
 #include "UDLR.h"
 #include "XOTriSq.h"
@@ -11,6 +12,11 @@
 
 class ofApp : public ofBaseApp{
     
+    const string settingsFilename = "settings.xml";
+    const float defaultSpeed = 10.0;
+    const float maxSpeed = 100.0;
+    const float minSpeed = 0.01;
+
     std::shared_ptr<Ps3Controller> controller;
     std::shared_ptr<ofxMidiOut> midiOut;
     std::unique_ptr<UDLR> udlr;
@@ -23,13 +29,17 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<ofxMidiCCSender> x2Sender, x2Hemi1Sender, x2Hemi2Sender,
         y2Sender, y2Hemi1Sender, y2Hemi2Sender, rad2Sender, t2Sender;
 
-    bool showDebug;
-    bool joyMute, ccMute, noteMute;
+    ofParameter<bool> showGui, showDebug, joyMute, ccMute, noteMute;
+    ofParameter<float> maxX1Speed, maxY1Speed, maxX2Speed, maxY2Speed;
+    ofxPanel gui;
 
     void drawDebug();
     void showStatus();
     template <class T>
     void drawJoystick(const T& xVal, const T& yVal, const bool pressed=false, const float &x=0, const float &y=0);
+
+    void saveSettings();
+    void exit();
 
     unsigned char ccNumInitializer;
 
@@ -37,7 +47,6 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
-        void exit();
 
 		void keyPressed(int key);
 		void keyReleased(int key);

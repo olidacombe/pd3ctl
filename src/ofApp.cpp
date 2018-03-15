@@ -5,10 +5,19 @@
 void ofApp::setup(){
     ofSetFrameRate(60);
 
-    showDebug = false;
-    joyMute = false;
-    ccMute = false;
-    noteMute = false;
+    gui.setup("panel");
+#ifdef debug
+    gui.add(showDebug.set("show debug [D]", false));
+#endif
+    gui.add(showGui.set("show gui [g]", true));
+    gui.add(joyMute.set("mute joysticks [m]", false));
+    gui.add(ccMute.set("mute CC [c]", false));
+    gui.add(noteMute.set("mute notes [n]", false));
+    gui.add(maxX1Speed.set("X1 speed", defaultSpeed, minSpeed, maxSpeed));
+    gui.add(maxY1Speed.set("Y1 speed", defaultSpeed, minSpeed, maxSpeed));
+    gui.add(maxX2Speed.set("X2 speed", defaultSpeed, minSpeed, maxSpeed));
+    gui.add(maxY2Speed.set("Y2 speed", defaultSpeed, minSpeed, maxSpeed));
+    gui.loadFromFile(settingsFilename);
 
     controller = Ps3Controller::getOne();
     udlr = std::make_unique<UDLR>();
@@ -248,6 +257,10 @@ void ofApp::draw(){
     showStatus();
     ofPopMatrix();
 
+    if(showGui) {
+        gui.draw();
+    }
+
 }
 
 void ofApp::showStatus() {
@@ -320,6 +333,9 @@ void ofApp::keyPressed(int key){
     switch(key) {
         case 'D':
             showDebug = !showDebug;
+            break;
+        case 'g':
+            showGui = !showGui;
             break;
         case 'm':
             joyMute = !joyMute;
@@ -468,7 +484,12 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
+void ofApp::saveSettings() {
+    gui.saveToFile(settingsFilename);
+}
+
 void ofApp::exit() {
+    saveSettings();
     midiOut->closePort();
 }
 

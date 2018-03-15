@@ -35,18 +35,22 @@ void ofApp::setup(){
     static const float maxRadius = std::sqrt(2) * (UCHAR_MAX/2);
 
     x1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    x1TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     x1Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     x1Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    y1TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y1Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y1Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     rad1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 1
     t1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 1
 
     x2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    x2TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     x2Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     x2Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
+    y2TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y2Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     y2Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
     rad2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 2
@@ -376,6 +380,9 @@ void ofApp::keyPressed(int key){
             case 'q':
                 y1Sender->bang();
                 break;
+            case 'Q':
+                y1TrackSender->bang();
+                break;
             case 'w':
                 y1Hemi1Sender->bang();
                 break;
@@ -390,6 +397,9 @@ void ofApp::keyPressed(int key){
                 break;
             case 'a':
                 x1Sender->bang();
+                break;
+            case 'A':
+                x1TrackSender->bang();
                 break;
             case 's':
                 x1Hemi1Sender->bang();
@@ -406,6 +416,9 @@ void ofApp::keyPressed(int key){
             case 'y':
                 y2Sender->bang();
                 break;
+            case 'Y':
+                y2TrackSender->bang();
+                break;
             case 'u':
                 y2Hemi1Sender->bang();
                 break;
@@ -420,6 +433,9 @@ void ofApp::keyPressed(int key){
                 break;
             case 'h':
                 x2Sender->bang();
+                break;
+            case 'H':
+                x2TrackSender->bang();
                 break;
             case 'j':
                 x2Hemi1Sender->bang();

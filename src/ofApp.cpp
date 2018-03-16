@@ -13,6 +13,7 @@ void ofApp::setup(){
     gui.add(joyMute.set("mute joysticks [m]", false));
     gui.add(ccMute.set("mute CC [c]", false));
     gui.add(noteMute.set("mute notes [n]", false));
+    gui.add(joyThreshold.set("joystick noise floor", 5., 0., 100.));
     gui.add(maxX1Speed.set("X1 speed", defaultSpeed, minSpeed, maxSpeed));
     gui.add(maxY1Speed.set("Y1 speed", defaultSpeed, minSpeed, maxSpeed));
     gui.add(maxX2Speed.set("X2 speed", defaultSpeed, minSpeed, maxSpeed));
@@ -34,27 +35,18 @@ void ofApp::setup(){
     ccNumInitializer = 0;
     static const float maxRadius = std::sqrt(2) * (UCHAR_MAX/2);
 
-    x1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    x1TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    x1Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    x1Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y1TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y1Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y1Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    rad1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 1
-    t1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 1
-
-    x2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    x2TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    x2Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    x2Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y2TrackSender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y2Hemi1Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    y2Hemi2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++);
-    rad2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, 0, maxRadius); // radius 2
-    t2Sender = std::make_unique<ofxMidiCCSender>(midiOut, ccNumInitializer++, -180, 180); // argument (theta - 't') 2
+    for(int i=0; i<2; i++) {
+        jxSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jxTrackSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jxHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jxHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jySender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jyTrackSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jyHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jyHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        radSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++, 0, maxRadius)); // radius 1
+        tSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++, -180, 180)); // argument (theta - 't') 1
+    }
 
     ofSetBackgroundAuto(true);
     ofColor colorOne(15);
@@ -111,44 +103,42 @@ void ofApp::update(){
     static ofxMidiNoteSender SelectSender{midiOut, ccNumInitializer++};
     static ofxMidiNoteSender PSSender{midiOut, ccNumInitializer++};
 
-    static ofVec2f joy1;
-    static ofVec2f joy1relative;
-    static ofVec2f joy2;
-    static ofVec2f joy2relative;
-
-    if(!joyMute) {
-        const auto x1 = controller->getCVal(v::L_x);
-        const auto y1 = controller->getCVal(v::L_y);
-        using T = decltype(x1);
+    if(!joyMute && !ccMute) {
+        using T = unsigned char; // ugh, failed to determine from Ps3Controller using result_of<decltype(....
+        const std::array<T, 2> xs = {controller->getCVal(v::L_x), controller->getCVal(v::R_x)};
+        const std::array<T, 2> ys = {controller->getCVal(v::L_y), controller->getCVal(v::R_y)};
         static auto LowerHemi = [](const T &v) {
             return static_cast<T>(ofMap(midpoint - v, 0, midpoint, 0, UCHAR_MAX, true));
         };
         static auto UpperHemi = [](const T &v) {
             return static_cast<T>(ofMap(v - midpoint, 0, midpoint, 0, UCHAR_MAX, true));
         };
-        joy1.set(x1, y1);
-        joy1relative = joy1 - origin;
-        (*x1Sender)(x1);
-        (*x1Hemi1Sender)(LowerHemi(x1));
-        (*x1Hemi2Sender)(UpperHemi(x1));
-        (*y1Sender)(y1);
-        (*y1Hemi1Sender)(LowerHemi(y1));
-        (*y1Hemi2Sender)(UpperHemi(y1));
-        (*rad1Sender)(joy1relative.length());
-        (*t1Sender)(joy1relative.angle(xAxis));
+        
+        for(int i=0; i<2; i++) {
+            static ofVec2f joy;
+            static ofVec2f joyRelative;
 
-        const auto x2 = controller->getCVal(v::R_x);
-        const auto y2 = controller->getCVal(v::R_y);
-        joy2.set(x2, y2);
-        joy2relative = joy2 - origin;
-        (*x2Sender)(x2);
-        (*x2Hemi1Sender)(LowerHemi(x2));
-        (*x2Hemi2Sender)(UpperHemi(x2));
-        (*y2Sender)(y2);
-        (*y2Hemi1Sender)(LowerHemi(y2));
-        (*y2Hemi2Sender)(UpperHemi(y2));
-        (*rad2Sender)(joy2relative.length());
-        (*t2Sender)(joy2relative.angle(xAxis));
+            auto x=xs[i];
+            auto y=ys[i];
+
+            joy.set(x, y);
+            joyRelative = joy - origin;
+            auto r = joyRelative.length();
+            if(r < joyThreshold) { // de-noise
+                r=0; x=0; y=0;
+                joy = origin;
+                joyRelative = ofVec2f::zero();
+            }
+            (*jxSender[i])(x);
+            (*jxHemi1Sender[i])(LowerHemi(x));
+            (*jxHemi2Sender[i])(UpperHemi(x));
+            (*jySender[i])(y);
+            (*jyHemi1Sender[i])(LowerHemi(y));
+            (*jyHemi2Sender[i])(UpperHemi(y));
+            (*radSender[i])(r);
+            (*tSender[i])(joyRelative.angle(xAxis));
+        }
+
     }
 
     const auto u = controller->getCVal(v::U);
@@ -378,34 +368,34 @@ void ofApp::keyPressed(int key){
         switch(key) {
             // left
             case 'q':
-                y1Sender->bang();
+                jySender[0]->bang();
                 break;
             case 'Q':
-                y1TrackSender->bang();
+                jyTrackSender[0]->bang();
                 break;
             case 'w':
-                y1Hemi1Sender->bang();
+                jyHemi1Sender[0]->bang();
                 break;
             case 'e':
-                y1Hemi2Sender->bang();
+                jyHemi2Sender[0]->bang();
                 break;
             case 'r':
-                rad1Sender->bang();
+                radSender[0]->bang();
                 break;
             case 't':
-                t1Sender->bang();
+                tSender[0]->bang();
                 break;
             case 'a':
-                x1Sender->bang();
+                jxSender[0]->bang();
                 break;
             case 'A':
-                x1TrackSender->bang();
+                jxTrackSender[0]->bang();
                 break;
             case 's':
-                x1Hemi1Sender->bang();
+                jxHemi1Sender[0]->bang();
                 break;
             case 'd':
-                x1Hemi2Sender->bang();
+                jxHemi2Sender[0]->bang();
                 break;
             case '6': // select
                 break;
@@ -414,34 +404,34 @@ void ofApp::keyPressed(int key){
             case '7': // start
                 break;
             case 'y':
-                y2Sender->bang();
+                jySender[1]->bang();
                 break;
             case 'Y':
-                y2TrackSender->bang();
+                jyTrackSender[1]->bang();
                 break;
             case 'u':
-                y2Hemi1Sender->bang();
+                jyHemi1Sender[1]->bang();
                 break;
             case 'i':
-                y2Hemi2Sender->bang();
+                jyHemi2Sender[1]->bang();
                 break;
             case 'o':
-                rad2Sender->bang();
+                radSender[1]->bang();
                 break;
             case 'p':
-                t2Sender->bang();
+                tSender[1]->bang();
                 break;
             case 'h':
-                x2Sender->bang();
+                jxSender[1]->bang();
                 break;
             case 'H':
-                x2TrackSender->bang();
+                jxTrackSender[1]->bang();
                 break;
             case 'j':
-                x2Hemi1Sender->bang();
+                jxHemi1Sender[1]->bang();
                 break;
             case 'k':
-                x2Hemi2Sender->bang();
+                jxHemi2Sender[1]->bang();
                 break;
                 
             default:

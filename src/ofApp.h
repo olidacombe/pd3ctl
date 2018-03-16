@@ -24,13 +24,11 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<LR12> lr12;
     std::unique_ptr<MiddleButtons> middleButtons;
 
-    std::unique_ptr<ofxMidiCCSender> x1Sender, x1TrackSender, x1Hemi1Sender, x1Hemi2Sender,
-        y1Sender, y1TrackSender, y1Hemi1Sender, y1Hemi2Sender, rad1Sender, t1Sender;
-    std::unique_ptr<ofxMidiCCSender> x2Sender, x2TrackSender, x2Hemi1Sender, x2Hemi2Sender,
-        y2Sender, y2TrackSender, y2Hemi1Sender, y2Hemi2Sender, rad2Sender, t2Sender;
+    std::vector<std::unique_ptr<ofxMidiCCSender>> jxSender, jxTrackSender, jxHemi1Sender, jxHemi2Sender,
+        jySender, jyTrackSender, jyHemi1Sender, jyHemi2Sender, radSender, tSender;
 
     ofParameter<bool> showGui, showDebug, joyMute, ccMute, noteMute;
-    ofParameter<float> maxX1Speed, maxY1Speed, maxX2Speed, maxY2Speed;
+    ofParameter<float> joyThreshold, maxX1Speed, maxY1Speed, maxX2Speed, maxY2Speed;
     ofxPanel gui;
 
     void drawDebug();

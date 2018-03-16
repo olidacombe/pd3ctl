@@ -11,7 +11,10 @@ class Ps3Controller
 {
     std::atomic<hid_device*> device;
     static constexpr size_t inputBufferSize = 49;
-    using bufferType = std::array<unsigned char, inputBufferSize>;
+
+    using dataType = unsigned char;
+    using bufferType = std::array<dataType, inputBufferSize>;
+
     bufferType buffers[2];
     bufferType *input, *output;
     std::mutex dataMutex;

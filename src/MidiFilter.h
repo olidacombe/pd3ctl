@@ -41,7 +41,7 @@ public:
     }
 
     void bang() {
-        midiOut->sendControlChange(ch, cc, (lastValue > 63) ? 63 : 64);
+        midiOut->sendControlChange(ch, cc, (lastValue > maxCC/2) ? maxCC/2 : maxCC/2 + 1);
         midiOut->sendControlChange(ch, cc, lastValue);
     }
 

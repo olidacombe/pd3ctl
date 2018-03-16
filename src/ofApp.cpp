@@ -14,10 +14,7 @@ void ofApp::setup(){
     gui.add(ccMute.set("mute CC [c]", false));
     gui.add(noteMute.set("mute notes [n]", false));
     gui.add(joyThreshold.set("joystick noise floor", 5., 0., 100.));
-    gui.add(maxX1Speed.set("X1 speed", defaultSpeed, minSpeed, maxSpeed));
-    gui.add(maxY1Speed.set("Y1 speed", defaultSpeed, minSpeed, maxSpeed));
-    gui.add(maxX2Speed.set("X2 speed", defaultSpeed, minSpeed, maxSpeed));
-    gui.add(maxY2Speed.set("Y2 speed", defaultSpeed, minSpeed, maxSpeed));
+    gui.add(speed.set("speed", defaultSpeed, minSpeed, maxSpeed));
     gui.loadFromFile(settingsFilename);
 
     controller = Ps3Controller::getOne();
@@ -37,11 +34,11 @@ void ofApp::setup(){
 
     for(int i=0; i<2; i++) {
         jxSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
-        jxTrackSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jxTrackSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++, -1, 1));
         jxHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
         jxHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
         jySender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
-        jyTrackSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
+        jyTrackSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++, -1, 1));
         jyHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
         jyHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++));
         radSender.emplace_back(new ofxMidiCCSender(midiOut, ccNumInitializer++, 0, maxRadius)); // radius 1
@@ -129,10 +126,16 @@ void ofApp::update(){
                 joy = origin;
                 joyRelative = ofVec2f::zero();
             }
+
+            trackers[i].x = ofMap(trackers[i].x + speed*joy.x, 0, UCHAR_MAX, -1, 1, true);
+            trackers[i].y = ofMap(trackers[i].y + speed*joy.y, 0, UCHAR_MAX, -1, 1, true);
+
             (*jxSender[i])(x);
+            (*jxTrackSender[i])(trackers[i].x);
             (*jxHemi1Sender[i])(LowerHemi(x));
             (*jxHemi2Sender[i])(UpperHemi(x));
             (*jySender[i])(y);
+            (*jyTrackSender[i])(trackers[i].y);
             (*jyHemi1Sender[i])(LowerHemi(y));
             (*jyHemi2Sender[i])(UpperHemi(y));
             (*radSender[i])(r);

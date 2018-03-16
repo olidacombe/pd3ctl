@@ -26,9 +26,10 @@ class ofApp : public ofBaseApp{
 
     std::vector<std::unique_ptr<ofxMidiCCSender>> jxSender, jxTrackSender, jxHemi1Sender, jxHemi2Sender,
         jySender, jyTrackSender, jyHemi1Sender, jyHemi2Sender, radSender, tSender;
+    std::array<ofVec2f, 2> trackers;
 
     ofParameter<bool> showGui, showDebug, joyMute, ccMute, noteMute;
-    ofParameter<float> joyThreshold, maxX1Speed, maxY1Speed, maxX2Speed, maxY2Speed;
+    ofParameter<float> joyThreshold, speed;
     ofxPanel gui;
 
     void drawDebug();

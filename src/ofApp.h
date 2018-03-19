@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "Ps3Controller.h"
+#include "JoystickComponent.h"
 #include "UDLR.h"
 #include "XOTriSq.h"
 #include "LR12.h"
@@ -23,10 +24,12 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<XOTriSq> xotrisq;
     std::unique_ptr<LR12> lr12;
     std::unique_ptr<MiddleButtons> middleButtons;
+    std::unique_ptr<JoystickComponent> joyLComponent, joyRComponent;
 
     std::vector<std::unique_ptr<ofxMidiCCSender>> jxSender, jxTrackSender, jxHemi1Sender, jxHemi2Sender,
         jySender, jyTrackSender, jyHemi1Sender, jyHemi2Sender, radSender, tSender;
-    std::array<ofVec2f, 2> trackers;
+    std::array<ofVec2f, 2> joyPoints, trackers;
+    std::array<bool, 2> joyPressed;
 
     ofParameter<bool> showGui, showDebug, joyMute, ccMute, noteMute;
     ofParameter<float> joyThreshold, speed;

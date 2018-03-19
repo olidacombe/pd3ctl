@@ -22,6 +22,8 @@ void ofApp::setup(){
     xotrisq = std::make_unique<XOTriSq>();
     lr12 = std::make_unique<LR12>();
     middleButtons = std::make_unique<MiddleButtons>();
+    joyLComponent = std::make_unique<JoystickComponent>(joyPoints[0], trackers[0], joyPressed[0]);
+    joyRComponent = std::make_unique<JoystickComponent>(joyPoints[1], trackers[1], joyPressed[1]);
     
     midiOut = std::make_shared<ofxMidiOut>();
     if(!midiOut->openVirtualPort("ps3ctl")) {
@@ -119,16 +121,18 @@ void ofApp::update(){
             auto y=ys[i];
 
             joy.set(x, y);
-            joyRelative = joy - origin;
-            auto r = joyRelative.length();
+            joyRelative.x = ofMap(joy.x, 0, UCHAR_MAX, -1, 1, true);
+            joyRelative.y = ofMap(joy.y, 0, UCHAR_MAX, -1, 1, true);
+            auto r = joyRelative.length() * midpoint;
             if(r < joyThreshold) { // de-noise
                 r=0; x=0; y=0;
                 joy = origin;
                 joyRelative = ofVec2f::zero();
             }
 
-            trackers[i].x = ofMap(trackers[i].x + speed*joy.x, 0, UCHAR_MAX, -1, 1, true);
-            trackers[i].y = ofMap(trackers[i].y + speed*joy.y, 0, UCHAR_MAX, -1, 1, true);
+            joyPoints[i] = joyRelative;
+            trackers[i].x = ofClamp(trackers[i].x + speed*joyRelative.x, -1, 1);
+            trackers[i].y = ofClamp(trackers[i].y + speed*joyRelative.y, -1, 1);
 
             (*jxSender[i])(x);
             (*jxTrackSender[i])(trackers[i].x);
@@ -221,11 +225,17 @@ void ofApp::draw(){
     using bmask = Ps3Controller::BMask;
 
     const auto sw_buts = controller->getCVal(v::SW_buttons);
+    joyPressed[0] = sw_buts & bmask::JoyL;
+    joyPressed[1] = sw_buts & bmask::JoyR;
 
-    const bool lj = sw_buts & bmask::JoyL;
-    const bool rj = sw_buts & bmask::JoyR;
-    drawJoystick(controller->getCVal(v::L_x), controller->getCVal(v::L_y), lj, 200, 400);
-    drawJoystick(controller->getCVal(v::R_x), controller->getCVal(v::R_y), rj, w-200, 400);
+    ofPushMatrix();
+    ofTranslate(200, 400);
+    joyLComponent->draw();
+    ofPopMatrix();
+    ofPushMatrix();
+    ofTranslate(w-200, 400);
+    joyRComponent->draw();
+    ofPopMatrix();
 
     constexpr int midline = 220;
 
@@ -282,31 +292,6 @@ void ofApp::showStatus() {
     //ofPopMatrix();
 }
 
-
-template <class T>
-void ofApp::drawJoystick(const T& xVal, const T& yVal, const bool pressed, const float &x, const float &y) {
-    constexpr float joyDrawRadius = 100;
-    constexpr int joyDrawSize = 2;
-    constexpr T maxValue= std::numeric_limits<T>::max();
-
-    const auto plotX = ofMap(xVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius);
-    const auto plotY = ofMap(yVal, 0, maxValue, -1* joyDrawRadius, joyDrawRadius);
-
-    ofPushMatrix();
-    ofTranslate(x, y);
-    
-    if(pressed) {
-        ofPushStyle();
-        ofSetColor(0xff, 0xff, 0xff, 0x7f);
-        ofDrawCircle(0, 0, joyDrawRadius / 2);
-        ofPopStyle();
-        ofDrawLine(0, 0, plotX, plotY);
-    }
-
-    ofDrawCircle(plotX, plotY, joyDrawSize);
-
-    ofPopMatrix();
-}
 
 void ofApp::drawDebug() {
     // get raw data from Ps3Controller and print as text

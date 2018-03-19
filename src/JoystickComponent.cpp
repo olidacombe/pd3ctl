@@ -22,6 +22,8 @@ void JoystickComponent::draw(const float radius) {
     ofDrawCircle(0, 0, pointSize);
     ofSetColor(0xff, 0xff, 0xff, 0xff);
     ofDrawCircle(point * radius, pointSize);
+    ofSetColor(0xff, 0, 0, 0xff);
+    ofDrawCircle(tracker * radius, pointSize);
 
     ofPopMatrix();
     ofPopStyle();

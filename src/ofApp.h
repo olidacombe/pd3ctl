@@ -14,8 +14,8 @@
 class ofApp : public ofBaseApp{
     
     const string settingsFilename = "settings.xml";
-    const float defaultSpeed = 10.0;
-    const float maxSpeed = 100.0;
+    const float defaultSpeed = 0.07;
+    const float maxSpeed = 0.1;
     const float minSpeed = 0.01;
 
     std::shared_ptr<Ps3Controller> controller;

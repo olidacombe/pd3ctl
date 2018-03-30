@@ -11,8 +11,21 @@
 #include "ofxMidi.h"
 #include "MidiFilter.h"
 
+namespace midiNum {
+    enum num {
+        up, down, left, right,
+        l1, r1, l2, r2,
+        x, o, sq, tri,
+        joyL, joyR, start, select, PS,
+        jx, jxTrack, jxHemi1, jxHemi2,
+        jy, jyTrack, jyHemi1, jyHemi2,
+        r, t
+    };
+    static constexpr int j1j2offset = num::t - num::jx + 1;
+}
+
 class ofApp : public ofBaseApp{
-    
+
     const string settingsFilename = "settings.xml";
     const float defaultSpeed = 0.07;
     const float maxSpeed = 0.1;
@@ -31,8 +44,8 @@ class ofApp : public ofBaseApp{
     std::array<ofVec2f, 2> joyPoints, trackers;
     std::array<bool, 2> joyPressed;
 
-    ofParameter<bool> showGui, showDebug, joyMute, ccMute, noteMute;
-    ofParameter<float> joyThreshold, speed;
+    ofParameter<bool> showGui, showDebug, mappingMode, joyMute, ccMute, noteMute;
+    ofParameter<float> joyThreshold, speed, mappingScanTime, mappingClearTime;
     ofxPanel gui;
 
     void drawDebug();

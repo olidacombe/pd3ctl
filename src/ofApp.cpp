@@ -5,6 +5,8 @@
 void ofApp::setup(){
     ofSetFrameRate(60);
 
+    showDebug = false;
+    
     gui.setup("panel");
 #ifdef debug
     gui.add(showDebug.set("show debug [D]", false));
@@ -335,20 +337,24 @@ void ofApp::keyPressed(int key){
     /* mapping sender keys:
      *
      * q -> yl
+     * Q -> yl track
      * w -> yl bottom hemi clamp
      * e -> yl top hemi clamp
      * r -> radius l
      * t -> theta l
      * a -> xl
+     * A -> xl track
      * s -> xl left hemi
      * d -> xl right hemi
      *
      * y -> yr
+     * Y -> yr track
      * u -> yr bottom hemi clamp
      * i -> yr top hemi clamp
      * o -> radius r
      * p -> theta r
      * h -> xr
+     * H -> xr track
      * j -> xr left hemi
      * k -> xr right hemi
      */

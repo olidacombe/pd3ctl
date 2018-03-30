@@ -40,16 +40,26 @@ void ofApp::setup(){
 
     for(int i=0; i <= midiNum::j1j2offset; i += midiNum::j1j2offset) {
         using namespace midiNum;
-        jxSender.emplace_back(new ofxMidiCCSender(midiOut, jx + i));
-        jxTrackSender.emplace_back(new ofxMidiCCSender(midiOut, jxTrack + i, -1, 1));
-        jxHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, jxHemi1 + i));
-        jxHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, jxHemi2 + i));
-        jySender.emplace_back(new ofxMidiCCSender(midiOut, jy + i));
-        jyTrackSender.emplace_back(new ofxMidiCCSender(midiOut, jyTrack + i, -1, 1));
-        jyHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, jyHemi1 + i));
-        jyHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, jyHemi2 + i));
-        radSender.emplace_back(new ofxMidiCCSender(midiOut, r + i, 0, maxRadius)); // radius 1
-        tSender.emplace_back(new ofxMidiCCSender(midiOut, t + i, -180, 180)); // argument (theta - 't') 1
+        //jxSender.emplace_back(new ofxMidiCCSender(midiOut, jx + i));
+        CCSenders[jx + i] = std::make_unique<ofxMidiCCSender>(midiOut, jx + i);
+        //jxTrackSender.emplace_back(new ofxMidiCCSender(midiOut, jxTrack + i, -1, 1));
+        CCSenders[jxTrack + i] = std::make_unique<ofxMidiCCSender>(midiOut, jxTrack + i, -1, 1);
+        //jxHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, jxHemi1 + i));
+        CCSenders[jxHemi1 + i] = std::make_unique<ofxMidiCCSender>(midiOut, jxHemi1 + i);
+        //jxHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, jxHemi2 + i));
+        CCSenders[jxHemi2 + i] = std::make_unique<ofxMidiCCSender>(midiOut, jxHemi2 + i);
+        //jySender.emplace_back(new ofxMidiCCSender(midiOut, jy + i));
+        CCSenders[jy + i] = std::make_unique<ofxMidiCCSender>(midiOut, jy + i);
+        //jyTrackSender.emplace_back(new ofxMidiCCSender(midiOut, jyTrack + i, -1, 1));
+        CCSenders[jyTrack + i] = std::make_unique<ofxMidiCCSender>(midiOut, jyTrack + i, -1, 1);
+        //jyHemi1Sender.emplace_back(new ofxMidiCCSender(midiOut, jyHemi1 + i));
+        CCSenders[jyHemi1 + i] = std::make_unique<ofxMidiCCSender>(midiOut, jyHemi1 + i);
+        //jyHemi2Sender.emplace_back(new ofxMidiCCSender(midiOut, jyHemi2 + i));
+        CCSenders[jyHemi2 + i] = std::make_unique<ofxMidiCCSender>(midiOut, jyHemi2 + i);
+        //radSender.emplace_back(new ofxMidiCCSender(midiOut, r + i, 0, maxRadius)); // radius 1
+        CCSenders[num::r + i] = std::make_unique<ofxMidiCCSender>(midiOut, num::r + i, 0, maxRadius);
+        //tSender.emplace_back(new ofxMidiCCSender(midiOut, t + i, -180, 180)); // argument (theta - 't') 1
+        CCSenders[num::t + i] = std::make_unique<ofxMidiCCSender>(midiOut, num::t + i, -180, 180);
     }
 
     ofSetBackgroundAuto(true);
@@ -122,6 +132,8 @@ void ofApp::update(){
         for(int i=0; i<2; i++) {
             static ofVec2f joy;
             static ofVec2f joyRelative;
+            
+            auto senderOffset = i*midiNum::j1j2offset;
 
             auto x=xs[i];
             auto y=ys[i];
@@ -140,16 +152,20 @@ void ofApp::update(){
             trackers[i].x = ofClamp(trackers[i].x + speed*joyRelative.x, -1, 1);
             trackers[i].y = ofClamp(trackers[i].y + speed*joyRelative.y, -1, 1);
 
-            (*jxSender[i])(x);
-            (*jxTrackSender[i])(trackers[i].x);
-            (*jxHemi1Sender[i])(LowerHemi(x));
-            (*jxHemi2Sender[i])(UpperHemi(x));
-            (*jySender[i])(y);
-            (*jyTrackSender[i])(trackers[i].y);
-            (*jyHemi1Sender[i])(LowerHemi(y));
-            (*jyHemi2Sender[i])(UpperHemi(y));
-            (*radSender[i])(r);
-            (*tSender[i])(joyRelative.angle(xAxis));
+            using namespace midiNum;
+
+            (*CCSenders[jx + senderOffset])(x);
+            (*CCSenders[jxTrack + senderOffset])(trackers[i].x);
+            (*CCSenders[jxHemi1 + senderOffset])(LowerHemi(x));
+            (*CCSenders[jxHemi2 + senderOffset])(UpperHemi(x));
+
+            (*CCSenders[jy + senderOffset])(y);
+            (*CCSenders[jyTrack + senderOffset])(trackers[i].y);
+            (*CCSenders[jyHemi1 + senderOffset])(LowerHemi(y));
+            (*CCSenders[jyHemi2 + senderOffset])(UpperHemi(y));
+
+            (*CCSenders[num::r + senderOffset])(r);
+            (*CCSenders[num::t + senderOffset])(joyRelative.angle(xAxis));
         }
 
     }
@@ -370,6 +386,8 @@ void ofApp::keyPressed(int key){
      * j -> xr left hemi
      * k -> xr right hemi
      */
+    
+    /*
     if(joyMute) {
         switch(key) {
             // left
@@ -444,6 +462,7 @@ void ofApp::keyPressed(int key){
                 break;
         }
     }
+    */
 }
 
 //--------------------------------------------------------------

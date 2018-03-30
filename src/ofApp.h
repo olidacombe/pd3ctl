@@ -17,11 +17,13 @@ namespace midiNum {
         l1, r1, l2, r2,
         x, o, sq, tri,
         joyL, joyR, start, select, PS,
+        // keep these ones 'last'
         jx, jxTrack, jxHemi1, jxHemi2,
         jy, jyTrack, jyHemi1, jyHemi2,
         r, t
     };
     static constexpr int j1j2offset = num::t - num::jx + 1;
+    static constexpr int size = num::t + j1j2offset + 1;
 }
 
 class ofApp : public ofBaseApp{
@@ -39,8 +41,11 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<MiddleButtons> middleButtons;
     std::unique_ptr<JoystickComponent> joyLComponent, joyRComponent;
 
+    std::array<std::unique_ptr<ofxMidiCCSender>, midiNum::size> CCSenders;
+    /*
     std::vector<std::unique_ptr<ofxMidiCCSender>> jxSender, jxTrackSender, jxHemi1Sender, jxHemi2Sender,
         jySender, jyTrackSender, jyHemi1Sender, jyHemi2Sender, radSender, tSender;
+     */
     std::array<ofVec2f, 2> joyPoints, trackers;
     std::array<bool, 2> joyPressed;
 
@@ -55,8 +60,6 @@ class ofApp : public ofBaseApp{
 
     void saveSettings();
     void exit();
-
-    unsigned char ccNumInitializer;
 
 	public:
 		void setup();

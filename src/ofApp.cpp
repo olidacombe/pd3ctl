@@ -36,6 +36,12 @@ void ofApp::setup(){
         ofExit();
     }
 
+
+    for(int i=0; i<midiNum::directSize; i++) {
+        CCSenders[i] = std::make_unique<ofxMidiCCSender>(midiOut, i);
+        NoteSenders[i] = std::make_unique<ofxMidiNoteSender>(midiOut, i);
+    }
+ 
     static const float maxRadius = std::sqrt(2) * (UCHAR_MAX/2);
 
     for(int i=0; i <= midiNum::j1j2offset; i += midiNum::j1j2offset) {
@@ -84,38 +90,6 @@ void ofApp::update(){
     static const ofVec2f origin(midpoint, midpoint);
     static const ofVec2f xAxis(-1, 0);
 
-    static ofxMidiNoteSender uNoteSender{midiOut, midiNum::up};
-    static ofxMidiCCSender uSender{midiOut, midiNum::up};
-    static ofxMidiNoteSender dNoteSender{midiOut, midiNum::down};
-    static ofxMidiCCSender dSender{midiOut, midiNum::down};
-    static ofxMidiNoteSender lNoteSender{midiOut, midiNum::left};
-    static ofxMidiCCSender lSender{midiOut, midiNum::left};
-    static ofxMidiNoteSender rNoteSender{midiOut, midiNum::right};
-    static ofxMidiCCSender rSender{midiOut, midiNum::right};
-
-    static ofxMidiNoteSender l1NoteSender{midiOut, midiNum::l1};
-    static ofxMidiCCSender l1Sender{midiOut, midiNum::l1};
-    static ofxMidiNoteSender r1NoteSender{midiOut, midiNum::r1};
-    static ofxMidiCCSender r1Sender{midiOut, midiNum::r1};
-    static ofxMidiNoteSender l2NoteSender{midiOut, midiNum::l2};
-    static ofxMidiCCSender l2Sender{midiOut, midiNum::l2};
-    static ofxMidiNoteSender r2NoteSender{midiOut, midiNum::r2};
-    static ofxMidiCCSender r2Sender{midiOut, midiNum::r2};
-
-    static ofxMidiNoteSender xNoteSender{midiOut, midiNum::x};
-    static ofxMidiCCSender xSender{midiOut, midiNum::x};
-    static ofxMidiNoteSender oNoteSender{midiOut, midiNum::o};
-    static ofxMidiCCSender oSender{midiOut, midiNum::o};
-    static ofxMidiNoteSender sqNoteSender{midiOut, midiNum::sq};
-    static ofxMidiCCSender sqSender{midiOut, midiNum::sq};
-    static ofxMidiNoteSender triNoteSender{midiOut, midiNum::tri};
-    static ofxMidiCCSender triSender{midiOut, midiNum::tri};
-
-    static ofxMidiNoteSender JoyLSender{midiOut, midiNum::joyL};
-    static ofxMidiNoteSender JoyRSender{midiOut, midiNum::joyR};
-    static ofxMidiNoteSender StartSender{midiOut, midiNum::start};
-    static ofxMidiNoteSender SelectSender{midiOut, midiNum::select};
-    static ofxMidiNoteSender PSSender{midiOut, midiNum::PS};
 
 
     if(!joyMute && !ccMute && !mappingMode) {
@@ -169,73 +143,40 @@ void ofApp::update(){
         }
 
     }
+    
+    using namespace midiNum;
+    static unsigned char values[directSize];
 
-    const auto u = controller->getCVal(v::U);
-    const auto d = controller->getCVal(v::D);
-    const auto l = controller->getCVal(v::L);
-    const auto r = controller->getCVal(v::R);
+    for(int i=0; i<pressureSensitiveSize; i++) {
+        values[i] = controller->getCVal(directSource[i]);
+    }
 
-    const auto l1 = controller->getCVal(v::L1);
-    const auto r1 = controller->getCVal(v::R1);
-    const auto l2 = controller->getCVal(v::L2);
-    const auto r2 = controller->getCVal(v::R2);
-
-    const auto x = controller->getCVal(v::X);
-    const auto o = controller->getCVal(v::O);
-    const auto sq = controller->getCVal(v::Sq);
-    const auto tri = controller->getCVal(v::Tri);
-
+    const auto sw_buts = controller->getCVal(v::SW_buttons);
+    constexpr unsigned char digitalButtonVelocity = 127;
+    values[joyL] = (sw_buts & bmask::JoyL) ? digitalButtonVelocity : 0;
+    values[num::select] = (sw_buts & bmask::Select) ? digitalButtonVelocity : 0;
+    values[PS] = controller->getCVal(v::PS) ? digitalButtonVelocity : 0;
+    values[start] = (sw_buts & bmask::Start) ? digitalButtonVelocity : 0;
+    values[joyR] = (sw_buts & bmask::JoyR) ? digitalButtonVelocity : 0;
+    
     if(mappingMode) {
         static std::array<std::weak_ptr<ofxMidiSender>, 3> triggerSequence;
         static bool scanning = true;
     } else { // not in mapping mode
         
         if(!noteMute) {
-            uNoteSender(u);
-            dNoteSender(d);
-            lNoteSender(l);
-            rNoteSender(r);
-
-            l1NoteSender(l1);
-            r1NoteSender(r1);
-            l2NoteSender(l2);
-            r2NoteSender(r2);
-
-            xNoteSender(x);
-            oNoteSender(o);
-            sqNoteSender(sq);
-            triNoteSender(tri);
-
-            const auto sw_buts = controller->getCVal(v::SW_buttons);
-            constexpr unsigned char digitalButtonVelocity = 127;
-            const unsigned char joyL = (sw_buts & bmask::JoyL) ? digitalButtonVelocity : 0;
-            const unsigned char select = (sw_buts & bmask::Select) ? digitalButtonVelocity : 0;
-            const unsigned char ps = controller->getCVal(v::PS) ? digitalButtonVelocity : 0;
-            const unsigned char start = (sw_buts & bmask::Start) ? digitalButtonVelocity : 0;
-            const unsigned char joyR = (sw_buts & bmask::JoyR) ? digitalButtonVelocity : 0;
-
-            JoyLSender(joyL);
-            SelectSender(select);
-            PSSender(ps);
-            StartSender(start);
-            JoyRSender(joyR);
+            using namespace midiNum;
+            
+            for(int i=0; i<directSize; i++) {
+                (*NoteSenders[i])(values[i]);
+            }
+            
         }
 
         if(!ccMute) {
-            uSender(u);
-            dSender(d);
-            lSender(l);
-            rSender(r);
-
-            l1Sender(l1);
-            r1Sender(r1);
-            l2Sender(l2);
-            r2Sender(r2);
-
-            xSender(x);
-            oSender(o);
-            sqSender(sq);
-            triSender(tri);
+            for(int i=0; i<directSize; i++) {
+                (*CCSenders[i])(values[i]);
+            }
         }
     }
 }

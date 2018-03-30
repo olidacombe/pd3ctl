@@ -22,8 +22,17 @@ namespace midiNum {
         jy, jyTrack, jyHemi1, jyHemi2,
         r, t
     };
+    static constexpr int pressureSensitiveSize = num::joyL;
+    static constexpr int directSize = num::jx;
     static constexpr int j1j2offset = num::t - num::jx + 1;
     static constexpr int size = num::t + j1j2offset + 1;
+    
+    using v = Ps3Controller::CVal;
+    static constexpr v directSource[] = {
+        v::U, v::D, v::L, v::R,
+        v::L1, v::R1, v::L2, v::R2,
+        v::X, v::O, v::Sq, v::Tri
+    }; // this has to be kept in the same order as num
 }
 
 class ofApp : public ofBaseApp{
@@ -42,6 +51,7 @@ class ofApp : public ofBaseApp{
     std::unique_ptr<JoystickComponent> joyLComponent, joyRComponent;
 
     std::array<std::unique_ptr<ofxMidiCCSender>, midiNum::size> CCSenders;
+    std::array<std::unique_ptr<ofxMidiNoteSender>, midiNum::size> NoteSenders;
     /*
     std::vector<std::unique_ptr<ofxMidiCCSender>> jxSender, jxTrackSender, jxHemi1Sender, jxHemi2Sender,
         jySender, jyTrackSender, jyHemi1Sender, jyHemi2Sender, radSender, tSender;

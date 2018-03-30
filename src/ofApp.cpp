@@ -165,12 +165,9 @@ void ofApp::update(){
     } else { // not in mapping mode
         
         if(!noteMute) {
-            using namespace midiNum;
-            
             for(int i=0; i<directSize; i++) {
                 (*NoteSenders[i])(values[i]);
             }
-            
         }
 
         if(!ccMute) {

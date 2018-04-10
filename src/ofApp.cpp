@@ -159,9 +159,11 @@ void ofApp::update(){
     values[start] = (sw_buts & bmask::Start) ? digitalButtonVelocity : 0;
     values[joyR] = (sw_buts & bmask::JoyR) ? digitalButtonVelocity : 0;
     
-    if(mappingMode) {
-        static std::array<std::weak_ptr<ofxMidiSender>, 3> triggerSequence;
-        static bool scanning = true;
+    if(mappingMode) { // here we need to figure out what's the "most varying",
+        // and is it "varying enough"?
+        
+        
+        
     } else { // not in mapping mode
         
         if(!noteMute) {

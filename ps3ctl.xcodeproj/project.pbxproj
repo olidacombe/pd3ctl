@@ -15,7 +15,7 @@
 		47BEA6DA4DAB16171FF60DA8 /* Ps3Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 612BA98BED6AE98BD498D3F8 /* Ps3Controller.cpp */; };
 		4E8CEC2AB003B118826F06E2 /* ofxLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 19ED32BCED5F83DF1453CC78 /* ofxLabel.cpp */; };
 		4F1505E01FB8FCFA008B1774 /* UDLR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */; };
-		4F628DDE1FA243BE006FC6AE /* libhidapi.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */; };
+		4F32E43E20CA079E00791C7B /* libhidapi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F32E43C20CA072100791C7B /* libhidapi.a */; };
 		4F8346DA1FC885FC0089B9D1 /* MiddleButtons.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4F8346D91FC885FB0089B9D1 /* MiddleButtons.cpp */; };
 		4FC33F7F205F333F00ABD64E /* JoystickComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FC33F7E205F333F00ABD64E /* JoystickComponent.cpp */; };
 		4FFDBC1B1FBA5C7E009DAA87 /* XOTriSq.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FFDBC191FBA5C7D009DAA87 /* XOTriSq.cpp */; };
@@ -77,7 +77,7 @@
 		4EE8356B71976B1E3493B758 /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseGui.h; path = ../../src/openFrameworks/addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
 		4F1505DE1FB8FCFA008B1774 /* UDLR.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UDLR.h; sourceTree = "<group>"; };
 		4F1505DF1FB8FCFA008B1774 /* UDLR.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UDLR.cpp; sourceTree = "<group>"; };
-		4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libhidapi.0.dylib; path = "../../../../usr/local/Cellar/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib"; sourceTree = "<group>"; };
+		4F32E43C20CA072100791C7B /* libhidapi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libhidapi.a; path = "libs/hidapi/0.8.0-rc1/lib/libhidapi.a"; sourceTree = "<group>"; };
 		4F8346D81FC885FB0089B9D1 /* MiddleButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiddleButtons.h; sourceTree = "<group>"; };
 		4F8346D91FC885FB0089B9D1 /* MiddleButtons.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MiddleButtons.cpp; sourceTree = "<group>"; };
 		4FC33F7D205F333F00ABD64E /* JoystickComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JoystickComponent.h; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F628DDE1FA243BE006FC6AE /* libhidapi.0.dylib in Frameworks */,
+				4F32E43E20CA079E00791C7B /* libhidapi.a in Frameworks */,
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
 				631702104AFC104323A9EB79 /* CoreMIDI.framework in Frameworks */,
 			);
@@ -170,7 +170,7 @@
 		4F628DDC1FA243BD006FC6AE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				4F628DDD1FA243BE006FC6AE /* libhidapi.0.dylib */,
+				4F32E43C20CA072100791C7B /* libhidapi.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -410,7 +410,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "mkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\n# Copy default icon file into App/Resources\nrsync -aved \"$ICON_FILE\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\n# Copy libfmod and change install directory for fmod to run\nrsync -aved ../../src/openFrameworks/libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\";\ninstall_name_tool -change @executable_path/libfmodex.dylib @executable_path/../Frameworks/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";\n\necho \"$GCC_PREPROCESSOR_DEFINITIONS\";\n\nrm -R -f \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/data\";\nmkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/data\";";
+			shellScript = "mkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\n# Copy default icon file into App/Resources\nrsync -aved \"$ICON_FILE\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/\"\n# Copy libfmod and change install directory for fmod to run\nrsync -aved ../../src/openFrameworks/libs/fmodex/lib/osx/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\";\ninstall_name_tool -change @executable_path/libfmodex.dylib @executable_path/../Frameworks/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\";\n\nrsync -aved \"$TARGET_BUILD_DIR/../libs/hidapi/0.8.0-rc1/lib/libhidapi.0.dylib\" \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Frameworks/\";\ninstall_name_tool -change /usr/local/opt/hidapi/lib/libhidapi.0.dylib @executable_path/../Frameworks/libhidapi.0.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/$PRODUCT_NAME\"\n\necho \"$GCC_PREPROCESSOR_DEFINITIONS\";\n\nrm -R -f \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/data\";\nmkdir -p \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/Resources/data\";";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -519,7 +519,7 @@
 					../../src/openFrameworks/addons/ofxMidi/src,
 					../../src/openFrameworks/addons/ofxMidi/src/desktop,
 					../../src/openFrameworks/addons/ofxMidi/src/ios,
-					/usr/local/include,
+					"./libs/hidapi/0.8.0-rc1/include",
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -529,6 +529,7 @@
 					"$(inherited)",
 					/usr/local/lib,
 					"/usr/local/Cellar/hidapi/0.8.0-rc1/lib",
+					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -637,7 +638,7 @@
 					../../src/openFrameworks/addons/ofxMidi/src,
 					../../src/openFrameworks/addons/ofxMidi/src/desktop,
 					../../src/openFrameworks/addons/ofxMidi/src/ios,
-					/usr/local/include,
+					"./libs/hidapi/0.8.0-rc1/include",
 				);
 				ICON = "$(ICON_NAME_DEBUG)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -647,6 +648,7 @@
 					"$(inherited)",
 					/usr/local/lib,
 					"/usr/local/Cellar/hidapi/0.8.0-rc1/lib",
+					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
 				WRAPPER_EXTENSION = app;
@@ -673,7 +675,7 @@
 					../../src/openFrameworks/addons/ofxMidi/src,
 					../../src/openFrameworks/addons/ofxMidi/src/desktop,
 					../../src/openFrameworks/addons/ofxMidi/src/ios,
-					/usr/local/include,
+					"./libs/hidapi/0.8.0-rc1/include",
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -683,6 +685,7 @@
 					"$(inherited)",
 					/usr/local/lib,
 					"/usr/local/Cellar/hidapi/0.8.0-rc1/lib",
+					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

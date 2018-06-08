@@ -4,6 +4,7 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     ofSetFrameRate(60);
+    ofSetDataPathRoot("../Resources/data/");
 
     showDebug = false;
     

@@ -519,7 +519,7 @@
 					../../src/openFrameworks/addons/ofxMidi/src,
 					../../src/openFrameworks/addons/ofxMidi/src/desktop,
 					../../src/openFrameworks/addons/ofxMidi/src/ios,
-					"./libs/hidapi/0.8.0-rc1/include",
+					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/include",
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -527,8 +527,6 @@
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/lib,
-					"/usr/local/Cellar/hidapi/0.8.0-rc1/lib",
 					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -638,7 +636,7 @@
 					../../src/openFrameworks/addons/ofxMidi/src,
 					../../src/openFrameworks/addons/ofxMidi/src/desktop,
 					../../src/openFrameworks/addons/ofxMidi/src/ios,
-					"./libs/hidapi/0.8.0-rc1/include",
+					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/include",
 				);
 				ICON = "$(ICON_NAME_DEBUG)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -646,8 +644,6 @@
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/lib,
-					"/usr/local/Cellar/hidapi/0.8.0-rc1/lib",
 					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
@@ -675,7 +671,7 @@
 					../../src/openFrameworks/addons/ofxMidi/src,
 					../../src/openFrameworks/addons/ofxMidi/src/desktop,
 					../../src/openFrameworks/addons/ofxMidi/src/ios,
-					"./libs/hidapi/0.8.0-rc1/include",
+					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/include",
 				);
 				ICON = "$(ICON_NAME_RELEASE)";
 				ICON_FILE = "$(ICON_FILE_PATH)$(ICON)";
@@ -683,8 +679,6 @@
 				INSTALL_PATH = /Applications;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					/usr/local/lib,
-					"/usr/local/Cellar/hidapi/0.8.0-rc1/lib",
 					"$(PROJECT_DIR)/libs/hidapi/0.8.0-rc1/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
